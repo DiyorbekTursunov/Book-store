@@ -8,8 +8,6 @@ import { useRouter } from "next/navigation";
 //images
 import header_reading_side from '@/components/images/icons/header-reading-side.gif'
 import book_1 from '@/components/images/books/book_1.jpg'
-import book_2 from '@/components/images/books/book_2.jpg'
-import facebook from '@/components/images/svgs/logos/facebook.svg'
 import Footer from "@/components/ui_elements/footer";
 
 export default function Home() {
@@ -27,7 +25,7 @@ export default function Home() {
             </Button>
           </div>
           <div className="w-full flex flex-col">
-            <Image src={header_reading_side} priority alt="header_reading_side" className=" md:w-[100%] sm:w-[100%] max-sm:w-[100%]" />
+            <Image src={header_reading_side} priority unoptimized alt="header_reading_side" className=" md:w-[100%] sm:w-[100%] max-sm:w-[100%]" />
             <Button className="py-[35px] max-sm:py-[25px] rounded-[62px] text-[18px] w-[300px] max-sm:w-full  md:hidden" onClick={() => router.push("#catigorys")}>
               Sotib Olish
             </Button>
