@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className="w-full bg-[#21204A]">
+    <footer className="w-full bg-[#21204A]">
       <div className="max-w-[1440px] mx-auto text-[#fff] pt-[67px] flex max-sm:flex-col max-sm:gap-12 justify-between px-3 mb-16">
         <div>
           <Link href={"/"}>
@@ -63,6 +63,6 @@ export default function Footer() {
         </div>
       </div>
       <hr className="text-[#11315B] pb-[64px]" />
-    </div>
+    </footer>
   )
 }

@@ -11,18 +11,14 @@ import Image from 'next/image'
 export default function Page() {
   const { slug } = useParams<{ slug: [] }>()
 
-
-
   return (
     <>
       <Navbar />
       <main className='mt-24'>
-
-
         {slug.map(catigory => (
           <>
-            {catigory === "jahon-adabyotlari" && <>
-              <h2 className="text-center sm:text-[34px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">Jahon adabyotlari</h2>
+            {catigory === "jahon-adabiyoti" && <>
+              <h2 className="text-center sm:text-[34px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">Jahon adabiyoti</h2>
               <section className="p-1 flex flex-wrap items-center justify-center">
 
                 <div className="flex-shrink-0 m-6 relative overflow-hidden  rounded-lg max-w-xs shadow-2xl cursor-pointer">
@@ -117,9 +113,9 @@ export default function Page() {
 
               </section>
             </>}
-            {catigory === "bolalar-adabyotlari" &&
+            {catigory === "bolalar-adabiyoti" &&
               <>
-                <h2 className="text-center sm:text-[34px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">Bolalar adabyotlari</h2>
+                <h2 className="text-center sm:text-[34px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">Bolalar adabiyoti</h2>
                 <section className="p-1 flex flex-wrap items-center justify-center">
 
                   <div className="flex-shrink-0 m-6 relative overflow-hidden  rounded-lg max-w-xs shadow-2xl cursor-pointer" >
@@ -215,9 +211,9 @@ export default function Page() {
 
                 </section>
               </>}
-            {catigory === "o'zbek-adabyotlari" &&
+            {catigory === "o'zbek-adabiyoti" &&
               <>
-                <h2 className="text-center sm:text-[34px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">o&apos;zbak adabyotlari</h2>
+                <h2 className="text-center sm:text-[34px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">o&apos;zbak adabiyoti</h2>
                 <section className="p-1 flex flex-wrap items-center justify-center">
 
                   <div className="flex-shrink-0 m-6 relative overflow-hidden  rounded-lg max-w-xs shadow-2xl cursor-pointer">
