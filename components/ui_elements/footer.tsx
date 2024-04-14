@@ -16,7 +16,7 @@ export default function Footer() {
           <Link href={"/"}>
             <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">Book Shop</span>
           </Link>
-          <span className="block mt-6">Bizning ijtimoiy tarmoqlarimizga qo'shiling</span>
+          <span className="block mt-6">Bizning ijtimoiy tarmoqlarimizga qo&apos;shiling</span>
           <ul className="text-[14px] flex gap-3 text-[#BDCADB] mt-3">
             <li>
               <Link href={"/"} target="_blank">
@@ -57,12 +57,12 @@ export default function Footer() {
               <Link href={"/"}>Bolalar Adabiyoti</Link>
             </li>
             <li>
-              <Link href={"/"}>O'zbek Adabiyoti</Link>
+              <Link href={"/"}>O&apos;zbek Adabiyoti</Link>
             </li>
           </ul>
         </div>
       </div>
-      <hr className="text-[#11315B] pb-[64px]"/>
+      <hr className="text-[#11315B] pb-[64px]" />
     </div>
   )
 }
