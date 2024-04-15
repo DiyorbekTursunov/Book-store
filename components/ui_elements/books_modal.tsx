@@ -60,7 +60,7 @@ export default function BooksModal({ setmodalIsOpen }: BooksModalProps) {
                                 <h2 className='text-[24px] font-semibold mb-3'>BOOK NAME</h2>
                                 <p>A polite young bear, dressed in a stylish red hat, shows up in London’s bustling Paddington Station with no more than a suitcase full of marmalade.</p>
                                 <div className='flex items-center justify-between'>
-                                    <div className="bg-[#F0F0F0] flex px-[10px] py-2 items-center w-[180px] rounded-[62px] gap-[20px]">
+                                    <div className="bg-[#F0F0F0] flex px-[10px] py-2 items-center w-[180px] rounded-[62px] sm:mt-3   gap-[20px]">
                                         <Button variant={"ghost"}>
                                             <Image src={minus_icon} alt="plus icon" />
                                         </Button>
