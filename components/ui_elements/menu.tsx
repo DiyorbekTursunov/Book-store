@@ -32,16 +32,13 @@ export default function Menu({ setmenuIsOpen }: MenuProps) {
                     <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">Book Shop</span>
                 </Link>
             </div>
-            <div className="flex items-center justify-between flex-wrap gap-3">
-                <form className="relative  flex xl:w-[560px] lg:w-[460px] md:w-[240px]" onSubmit={() => searchInputHandel()}>
+            <div className="w-full  border border-[#000]  rounded-[62px]">
+                <form className="relative " onSubmit={() => searchInputHandel()}>
                     <button className="absolute h-full flex items-center left-3 z-50"   >
                         <Image src={search_icon} alt="search icon" className="cursor-pointer" />
                     </button>
                     <Input placeholder="kitoblarni qidirish..." id="search_input" className="flex w-full h-[48px] text-[18px] items-center gap-3 bg-[#F0F0F0] rounded-[62px] pl-12" />
                 </form>
-                <Button variant={"ghost"} onClick={() => router.push("/card")}>
-                    <Image src={bag_icon} alt="Bag image" />
-                </Button>
             </div>
             <ul className="gap-6 font-medium flex justify-center mt-6">
                 <li>
