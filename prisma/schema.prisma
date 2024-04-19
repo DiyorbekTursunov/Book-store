@@ -15,16 +15,30 @@ datasource db {
 
 model Category {
   id    String @id @default(uuid()) // Primary key for Category
-  title String // Title of the category
-  books Book[] // One-to-many relation to Book model
+  title String @unique // Title of the category
 }
 
 // Define the Book model
 model Book {
-  id          String   @id @default(uuid()) // Primary key for Book
-  title       String // Title of the book
-  description String? // Description of the book (optional)
-  price       String // Price of the book
-  category    Category @relation(fields: [categoryId], references: [id]) // Many-to-one relation to Category model
-  categoryId  String // Foreign key reference to Category
+  id           String @id @default(uuid()) // Primary key for Book
+  name         String // Title of the book
+  imageUrl     String // Image of the book
+  description  String // Description of the book (optional)
+  price        String // Price of the book
+  categoryId   String // Foreign key reference to Category
+  categoryName String // Foreign key reference to Category
+}
+
+model User {
+  id       String @id @default(uuid()) // Primary key for User
+  name     String
+  email    String
+  password String
+  token    String
+  role     Role   @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
 }

@@ -10,15 +10,24 @@ import header_reading_side from '@/components/images/icons/header-reading-side.g
 import book_1 from '@/components/images/books/book_1.jpg'
 import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter()
   const [modalIsOpen, setmodalIsOpen] = useState<boolean>(false)
 
+  // Example usage
+
+  useEffect(() => {
+    // getCatigory()
+    // createCatigory("Jahon adabiyoti")
+  }, [])
+  
+
+
   return (
     <>
-      {modalIsOpen && <BooksModal setmodalIsOpen={setmodalIsOpen}/>}
+      {modalIsOpen && <BooksModal setmodalIsOpen={setmodalIsOpen} />}
       <Navbar />
       <header className="bg-[#f1faf0] h-full">
         <div className="max-w-[1440px] mx-auto p-3 py-[127px] flex md:flex-row sm:flex-col max-sm:flex-col items-center  justify-between">
