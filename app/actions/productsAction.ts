@@ -1,8 +1,7 @@
 "use server"
 
-import { PrismaClient } from "@prisma/client";
+import prisma from '@/db/prisma'
 
-const prisma = new PrismaClient();
 
 
 // this is function create catigory
