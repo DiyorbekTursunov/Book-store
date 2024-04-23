@@ -11,17 +11,17 @@ export async function createCatigory(categoryData: categoryData,) {
     try {
         // Create a new category
         if (!title)
-            return { massage: "Malumot to'liq kiritilmagan" }
+            return { massage: "Malumot to'liq kiritilmagan", status: "404" }
 
         await prisma.category.create({
             data: {
                 title: title,
             },
         });
-        return { massage: "categorya muvafaqiyatli yaratildi yaratildi" }
+        return { massage: "categorya muvafaqiyatli yaratildi yaratildi", status: "201" }
 
     } catch (error: any) {
-        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error }
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
     }
 }
 
@@ -42,7 +42,7 @@ export async function createBook(bookData: bookData) {
 
         //cheack if catigoryId not available return error
         if (!Allcategory.find((element) => element.id === categoryId))
-            return { massage: "Categoriya mavjud emas !" }
+            return { massage: "Categoriya mavjud emas !", status: "400" }
 
 
         //cheack if all cridentials available create book
@@ -63,14 +63,14 @@ export async function createBook(bookData: bookData) {
                     categoryId,
                 },
             });
-            return { massage: "kitob muvafaqiyatli yaratildi yaratildi" }
+            return { massage: "kitob muvafaqiyatli yaratildi yaratildi", status: "201" }
             //cheack if all cridentials not fully included return error
         } else {
-            return { massage: "Malumot to'liq kiritilmagan" }
+            return { massage: "Malumot to'liq kiritilmagan", status: "400" }
 
         }
     } catch (error) {
-        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error }
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
     }
 }
 
@@ -84,16 +84,19 @@ export async function getCatigory() {
         if (!category)
             return {
                 massage: "catigoys not found please create one",
+                status: "404",
+
             }
 
         // if category a found return category 
         return {
             massage: "success",
-            category
+            category,
+            status: "200"
         }
 
     } catch (error: any) {
-        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error }
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error, status: "500" }
     }
 }
 
@@ -107,15 +110,17 @@ export async function getBooks() {
         if (!books)
             return {
                 massage: "books not found please create one",
+                status: "404",
             }
 
         // if category a found return category 
         return {
             massage: "success",
-            books
+            books,
+            status: "200"
         }
 
     } catch (error: any) {
-        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error }
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
     }
 }
