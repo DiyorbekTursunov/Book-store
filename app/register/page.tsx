@@ -16,15 +16,12 @@ interface RegisterType {
     password: string;
 }
 
-interface errorMassageType {
-    readMore: boolean
-    massage: string
-}
 
 export default function Register() {
     const [errorMassage, setErrorMassage] = useState<errorMassageType>({ readMore: false, massage: "" })
     const [isLoading, setisLoading] = useState(false)
     const router = useRouter()
+
     const [userData, setUserData] = useState<RegisterType>({
         name: '',
         email: '',
@@ -60,6 +57,7 @@ export default function Register() {
                     break
                 case "409":
                 case "500":
+                    toast(message);
                     break;
             }
         } catch (error) {
@@ -115,7 +113,7 @@ export default function Register() {
                                     </Button>
                                     {errorMassage.readMore && <p className='text-red-500 mb-3'>{errorMassage.massage}</p>}
                                 </form>
-                                <span className="text-[#4d4d4d]">Already have an account? <Link className="text-[#000] font-bold" href={"/login"}>Login</Link></span>
+                                <span className="text-[#4d4d4d]">Accauntingiz bormi? <Link className="text-[#000] font-bold" href={"/login"}>Login</Link></span>
                             </div>
                         </div>
                     </div>

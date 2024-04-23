@@ -57,7 +57,7 @@ export default function Navbar() {
                     <Image src={bag_icon} alt="Bag image" />
                 </Button>
                 <Button variant={"ghost"} onClick={() => router.push("/admin")}>
-                    <span className="text-[16px] font-medium">Adminga o'tish</span>
+                    <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
                 </Button>
             </div>
         </nav>

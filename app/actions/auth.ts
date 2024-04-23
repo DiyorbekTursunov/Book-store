@@ -78,11 +78,42 @@ export async function login(userData: LoginType) {
             if (filteredUser) {
                 return { message: "Foydalanuvchi muvaffaqiyatli ilovaga kirdi !", status: "200", token: filteredUser.token };
             } else {
-                return { message: "Hatolik foydalanuvchi mavjud emas", status: "404" };
+                return { message: "Hatolik parol yoki email noto'g'ri !", status: "404" };
             }
         } else {
             //if user won't entered all fields returned error
-            return { message: "Hatolik malumot toliq kiritilmagan", fullMessage: "Parol uzunligi 6 tadan kam bo'lmasligi kerak, Foydalanuvchi ismi uzunligi 3 tadan kam bo'lmasligi kerak", status: "400" };
+            return { message: "Hatolik malumot toliq kiritilmagan", fullMessage: "Parol uzunligi 6 tadan kam bo'lmasligi kerak", status: "400" };
+        }
+    } catch (error) {
+        return { message: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering')", status: "500", error };
+    }
+}
+
+
+
+export async function verifyUser(verification_token: string | null) {
+    // const { email, password } = userData;
+
+    try {
+        if (verification_token) {
+            const new_verification_token = JSON.parse(verification_token)
+
+            //this code will find all users
+            const allUsers = await prisma.user.findMany();
+            const user = allUsers.filter((user: any) => {
+                user.token === new_verification_token
+            })
+
+            if (user.length)
+                return { message: "Token invalid !!!", status: "400" };
+
+            if (prisma.user) {
+
+            }
+            return { message: "Fodalanuvchi ro'yhatdan o'tgan", status: "200", user };
+        } else {
+            //if user won't entered all fields returned error
+            return { message: "Token mavjud emas", status: "400" };
         }
     } catch (error) {
         return { message: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering')", status: "500", error };

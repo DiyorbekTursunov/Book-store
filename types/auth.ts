@@ -17,3 +17,10 @@ interface LoginType {
     token?: string
     role?: string
 }
+
+
+
+interface errorMassageType {
+    readMore: boolean
+    massage: string
+}

@@ -11,8 +11,10 @@ import book_1 from '@/components/images/books/book_1.jpg'
 import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
 import { useEffect, useState } from "react";
+import { verifyUser } from "./actions/auth";
 
 export default function Home() {
+  const verification_token = typeof window !== 'undefined' ? localStorage.getItem("verification_token") : null;
   const router = useRouter()
   const [modalIsOpen, setmodalIsOpen] = useState<boolean>(false)
 
@@ -22,9 +24,6 @@ export default function Home() {
     // getCatigory()
     // createCatigory("Jahon adabiyoti")
   }, [])
-  
-
-
   return (
     <>
       {modalIsOpen && <BooksModal setmodalIsOpen={setmodalIsOpen} />}
