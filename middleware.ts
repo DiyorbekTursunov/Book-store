@@ -27,7 +27,7 @@ async function verifyUser(verification_token: string | null) {
 
 async function verifyUserToken() {
     const verification_token = typeof window !== 'undefined' ? localStorage.getItem("verification_token") : null;
-    if (verification_token) return;
+    if (!verification_token) return;
     const new_verification_token = JSON.parse(verification_token)
 
 
