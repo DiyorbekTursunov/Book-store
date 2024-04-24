@@ -89,33 +89,60 @@ export async function login(userData: LoginType) {
     }
 }
 
-
-
 export async function verifyUser(verification_token: string | null) {
-    // const { email, password } = userData;
-
     try {
         if (verification_token) {
-            const new_verification_token = JSON.parse(verification_token)
 
-            //this code will find all users
             const allUsers = await prisma.user.findMany();
-            const user = allUsers.filter((user: any) => {
-                user.token === new_verification_token
-            })
-
-            if (user.length)
+            const user = allUsers.find((user: any) => user.token === verification_token);
+            if (!user)
                 return { message: "Token invalid !!!", status: "400" };
 
-            if (prisma.user) {
+            // Serialize user to plain JSON object
+            const serializedUser = { role: user.role /* Add other necessary properties */ };
 
-            }
-            return { message: "Fodalanuvchi ro'yhatdan o'tgan", status: "200", user };
+            return { message: "Fodalanuvchi ro'yhatdan o'tgan", status: "200", user: serializedUser };
         } else {
-            //if user won't entered all fields returned error
-            return { message: "Token mavjud emas", status: "400" };
+            return { message: "Token mavjud emas", status: "404" };
         }
     } catch (error) {
-        return { message: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering')", status: "500", error };
+        return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
+    }
+}
+
+
+export async function getAllUsers() {
+    try {
+        const allUsers = await prisma.user.findMany()
+        if (!allUsers)
+            return { message: "Hatolik foydalanuvchilar topilmadi", status: "404" };
+
+        return { message: "Success, hamma foydalanuvchilar", status: "200", allUsers };
+    } catch (error) {
+        return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
+    }
+}
+
+export async function createAdmin(userID: string) {
+    try {
+        if (!userID)
+            return { message: "Hatolik malumot toliq kiritilmagan", status: "400" };
+
+        
+        const user = await prisma.user.update({
+            where: { id: userID },
+            data: {
+                role: 'ADMIN'
+            },
+        });
+
+        if (!user)
+            return { message: "Hatolik foydalanuvchilar topilmadi", status: "404" };
+
+        return { message: "Admin yaratildi", status: "201" };
+
+
+    } catch (error) {
+        return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
     }
 }

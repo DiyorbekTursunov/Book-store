@@ -1,11 +1,11 @@
 import 'dotenv/config'
 
+
+import prisma from '@/db/prisma'
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { login, register } from './actions/auth';
-import { Button } from '@/components/ui/button';
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,19 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
-
-  async function name() {
-    const userData = {
-      email: "diyorbek@gmail.com",
-      password: "12345123232",
-    }
-
-    const user = await login(userData)
-    console.log(user);
-  }
-  
-
-
   return (
     <html lang="en">
       <body className={inter.className}>

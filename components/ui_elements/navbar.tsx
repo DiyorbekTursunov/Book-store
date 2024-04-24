@@ -10,15 +10,31 @@ import search_icon from "../images/svgs/icons/search_icon.svg"
 import bag_icon from '../images/svgs/icons/bag_icon.svg'
 import menu_icon from '../images/svgs/icons/menu_icon.svg'
 import Menu from "./menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { verifyUser } from "@/app/actions/auth";
 
 export default function Navbar() {
     const [menuIsOpen, setmenuIsOpen] = useState<boolean>(false)
+    const verification_token = typeof window !== 'undefined' ? localStorage.getItem("verification_token") : null;
+    const [adminButtonVisible, setAdminButtonVisible] = useState(false);
     const router = useRouter()
 
     function searchInputHandel() {
         router.push("/search")
     }
+
+    useEffect(() => {
+        async function verifyUserToken() {
+            if (!verification_token) return;
+            const new_verification_token = JSON.parse(verification_token)
+
+            const response = await verifyUser(new_verification_token);
+            if (response.status === "200" && response.user && response.user.role === "ADMIN") {
+                setAdminButtonVisible(true);
+            }
+        }
+        verifyUserToken();
+    }, [verification_token]);
 
     return (
         <nav className="max-w-[1440px] mx-auto flex items-center  transition-all justify-between py-6 px-3">
@@ -56,9 +72,9 @@ export default function Navbar() {
                 <Button variant={"ghost"} onClick={() => router.push("/card")}>
                     <Image src={bag_icon} alt="Bag image" />
                 </Button>
-                <Button variant={"ghost"} onClick={() => router.push("/admin")}>
+                {adminButtonVisible && <Button variant={"ghost"} onClick={() => router.push("/admin")}>
                     <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
-                </Button>
+                </Button>}
             </div>
         </nav>
     )
