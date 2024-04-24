@@ -47,8 +47,8 @@ export default function Login() {
             switch (status) {
                 case "200":
                     // toast(message);
-                    router.push("/");
                     localStorage.setItem("verification_token", JSON.stringify(data.token))
+                    router.push("/");
                     break;
                 case "400":
                     setErrorMassage({ readMore: true, massage: data.fullMessage ?? "" });
