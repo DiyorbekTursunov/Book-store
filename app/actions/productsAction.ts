@@ -75,7 +75,7 @@ export async function createBook(bookData: bookData) {
 }
 
 
-export async function getCatigory() {
+export async function getCategory() {
     try {
         // get all category
         const category = await prisma.category.findMany();

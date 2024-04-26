@@ -106,7 +106,7 @@ export default function Login() {
                                     </Button>
                                     {errorMassage.readMore && <p className='text-red-500 mb-3'>{errorMassage.massage}</p>}
                                 </form>
-                                <span className="text-[#4d4d4d]">Already have an account? <Link className="text-[#000] font-bold" href={"/login"}>Login</Link></span>
+                                <span className="text-[#4d4d4d]">Already have an account? <Link className="text-[#000] font-bold" href={"/register"}>Register</Link></span>
                             </div>
                         </div>
                     </div>

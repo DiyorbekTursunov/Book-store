@@ -20,13 +20,14 @@ model Category {
 
 // Define the Book model
 model Book {
-  id           String @id @default(uuid()) // Primary key for Book
+  id           String   @id @default(uuid()) // Primary key for Book
   name         String // Title of the book
   imageUrl     String // Image of the book
   description  String // Description of the book (optional)
   price        String // Price of the book
   categoryId   String // Foreign key reference to Category
   categoryName String // Foreign key reference to Category
+  createdAt    DateTime @default(now())
 }
 
 model User {
@@ -34,11 +35,12 @@ model User {
   name     String
   email    String
   password String
-  token    String 
+  token    String
   role     Role   @default(USER)
 }
 
 enum Role {
   USER
   ADMIN
+  OWNER
 }

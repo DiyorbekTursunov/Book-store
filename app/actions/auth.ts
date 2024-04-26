@@ -28,7 +28,7 @@ export async function register(userData: RegisterType): Promise<returnType> {
 
             //if user entered data is exits on the data base code return user already exits  
             const filteredUser = allUsers.filter((user) => {
-                if (user.email.toLocaleLowerCase() === email.toLocaleLowerCase() && user.name.toLocaleLowerCase() === name.toLocaleLowerCase())
+                if (user.email.toLocaleLowerCase() === email.toLocaleLowerCase() || user.name.toLocaleLowerCase() === name.toLocaleLowerCase())
                     return user;
             });
 
@@ -132,10 +132,11 @@ export async function createAdmin(userID: string) {
         const user = await prisma.user.update({
             where: { id: userID },
             data: {
-                role: 'ADMIN'
+                role: 'OWNER'
             },
         });
-
+        console.log(user);
+        
         if (!user)
             return { message: "Hatolik foydalanuvchilar topilmadi", status: "404" };
 
@@ -146,3 +147,17 @@ export async function createAdmin(userID: string) {
         return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
     }
 }
+
+
+
+// export async function del() {
+//     try {
+//         const user = await prisma.user.deleteMany()
+
+//         console.log(user);
+        
+//     } catch (error) {
+//         return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
+//     }
+// }
+

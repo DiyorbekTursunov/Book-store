@@ -12,7 +12,7 @@ import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
 import { useEffect, useState } from "react";
 import { createAdmin, getAllUsers, verifyUser } from "./actions/auth";
-import { getCatigory } from "./actions/productsAction";
+import { getCategory } from "./actions/productsAction";
 
 interface allcategoryType {
   category: allcategory[] | undefined
@@ -38,7 +38,7 @@ export default function Home() {
     async function getAllCategory() {
       setisLoading(true)
       try {
-        const data = await getCatigory()
+        const data = await getCategory()
         if (data.category !== undefined) {
           setallcategory(data);
         } else {
