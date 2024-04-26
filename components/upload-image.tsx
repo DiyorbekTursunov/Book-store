@@ -15,11 +15,13 @@ interface ImageUploadProps {
     loading: boolean
 }
 
-export default function ImageUpload({ setimageUrl, setloading, loading }) {
-    const [file, setFile] = useState(null);
+export default function ImageUpload({ setimageUrl, setloading, loading }: ImageUploadProps) {
+    const [file, setFile] = useState<File | null>(null);
 
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setFile(event.target.files[0]);
+        }
     };
 
     const uploadImage = () => {
