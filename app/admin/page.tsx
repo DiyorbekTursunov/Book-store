@@ -61,7 +61,7 @@ export default function Admin() {
     }
     
     fetchData();
-  }, [verificationToken]);
+  }, []);
 
   return (
     <div className="max-w-[1440px] mx-auto px-3">
