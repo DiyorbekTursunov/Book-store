@@ -78,7 +78,7 @@ export default function Books({ allBooks, allCategorys }: userType) {
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">
                   <CardHeader>
-                    <CardTitle>Bo'limlar</CardTitle>
+                    <CardTitle>Bo&apos;limlar</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Table>
