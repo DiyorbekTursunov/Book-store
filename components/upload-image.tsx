@@ -54,7 +54,7 @@ export default function ImageUpload({ setimageUrl, setloading, loading }: ImageU
     return (
         <>
             <Dialog>
-                <DialogTrigger>
+                <DialogTrigger className="w-full">
                     <div className="bg-black text-white flex items-center justify-center py-2 px-3 rounded-md hover:bg-opacity-80">
                         <FiUpload size="1.2em" />
                         <span className="ml-2 text-sm">Rasm Yuklash</span>

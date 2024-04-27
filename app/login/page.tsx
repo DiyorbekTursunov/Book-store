@@ -102,7 +102,7 @@ export default function Login() {
                                         required
                                     />
                                     <Button type="submit" aria-disabled={isLoading ? "true" : "false"} className={`${isLoading ? "cursor-wait" : "cursor-pointer w-full"} mt-5 tracking-wide font-semibold text-gray-100 w-full py-7 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none mb-3`}>
-                                        Register
+                                        Login
                                     </Button>
                                     {errorMassage.readMore && <p className='text-red-500 mb-3'>{errorMassage.massage}</p>}
                                 </form>

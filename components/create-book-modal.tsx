@@ -82,7 +82,6 @@ export default function CreateBookModal({ allCategorys }: CreateBookModalProps) 
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="w-full mb-3">Upload Profile Picture</DialogTitle>
                     <form className="w-full flex ">
                         <Card className="w-full grid gap-4 pt-6">
                             <CardContent className="grid gap-4">
@@ -136,8 +135,10 @@ export default function CreateBookModal({ allCategorys }: CreateBookModalProps) 
                                         <FiUpload size="1.2em" />
                                         <span className=" ml-2 text-sm">Yuknalmoqda</span>
                                     </div>}
-                                    {imageUrl && <img src={imageUrl} width={300} height={800} alt="book image" className="w-full justify-center" />}
-                                    <ImageUpload setimageUrl={setImageUrl} setloading={setLoading} loading={loading} />
+                                    <div className="w-full md:flex-col flex justify-center md:items-start items-end">
+                                        {imageUrl && <img src={imageUrl} alt="book image" className="md:w-[50%] md:h-[300px] sm:h-[300px] max-sm:h-[200px]" />}
+                                        <ImageUpload setimageUrl={setImageUrl} setloading={setLoading} loading={loading} />
+                                    </div>
                                 </div>
                                 <DialogClose asChild>
                                     <Button type="submit" onClick={createBookFun}>Yaratish</Button>
