@@ -5,6 +5,7 @@ interface bookData {
     imageUrl: string,
     price: string,
     categoryId: string
+    createdAt?: string
 }
 
 interface categoryData {

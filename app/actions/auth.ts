@@ -132,7 +132,7 @@ export async function createAdmin(userID: string) {
         const user = await prisma.user.update({
             where: { id: userID },
             data: {
-                role: 'OWNER'
+                role: 'ADMIN'
             },
         });
         console.log(user);

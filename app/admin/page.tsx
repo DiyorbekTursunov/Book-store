@@ -6,17 +6,11 @@ import Books from "@/components/books-admin";
 import { verifyUser } from "../actions/auth";
 import { getBooks, getCategory } from "../actions/productsAction";
 import { useRouter } from "next/navigation";
+import { Book } from "@/types/admin";
 
 // Define the types for Book and Category
-interface Book {
-  id: string;
-  name: string;
-  categoryId: string;
-  categoryName: string;
-  description: string;
-  imageUrl: string;
-  price: string;
-}
+
+
 
 interface Category {
   id: string;
@@ -27,6 +21,7 @@ export default function Admin() {
   const [allCategorys, setAllCategorys] = useState<Category[] | null>(null);
   const [allBooks, setAllBooks] = useState<Book[] | null>(null);
   const router = useRouter();
+
 
   useEffect(() => {
     async function fetchData() {
@@ -39,7 +34,7 @@ export default function Admin() {
 
         const token = JSON.parse(verificationToken);
         const response = await verifyUser(token);
-        
+
         if (response.status !== "200" || !response.user || response.user.role !== "ADMIN") {
           router.push("/404");
           return;
@@ -52,14 +47,17 @@ export default function Admin() {
 
         const booksResponse = await getBooks();
         if (booksResponse.status === "200") {
-          setAllBooks(booksResponse.books || []);
+          // Extract the books array from the response object
+          const books = booksResponse.books || [];
+          setAllBooks(books); // Pass the array of book objects
         }
+
       } catch (error) {
         console.error("Error fetching data:", error);
         // Handle errors here, e.g., display an error message to the user
       }
     }
-    
+
     fetchData();
   }, []);
 

@@ -36,13 +36,13 @@ import {
 } from "@/components/ui/tabs"
 import CreateBookModal from "./create-book-modal"
 import { useState } from "react"
-import { Book, allCategorys } from "@/types/admin"
+import { allCategorys } from "@/types/admin"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/ReactToastify.css"
 import { delBookById } from "@/app/actions/productsAction"
 
 interface userType {
-  allBooks: Book[] | null;
+  allBooks: UsersProps[] | null;
   allCategorys: allCategorys[]
 }
 
@@ -70,8 +70,6 @@ export default function Books({ allBooks, allCategorys }: userType) {
               <div className="flex items-center">
                 <TabsList>
                   <TabsTrigger value="all">Hammasi</TabsTrigger>
-                  <TabsTrigger value="active">Active</TabsTrigger>
-                  <TabsTrigger value="draft">Draft</TabsTrigger>
                 </TabsList>
                 <div className="ml-auto flex items-center gap-2">
                   <CreateBookModal allCategorys={allCategorys} />
@@ -80,7 +78,7 @@ export default function Books({ allBooks, allCategorys }: userType) {
               <TabsContent value="all">
                 <Card x-chunk="dashboard-06-chunk-0">
                   <CardHeader>
-                    <CardTitle>Kitoblar</CardTitle>
+                    <CardTitle>Bo'limlar</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <Table>
@@ -126,7 +124,7 @@ export default function Books({ allBooks, allCategorys }: userType) {
                               {book.description.slice(0, 15)}...
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
-                              {book.createdAt.getFullYear()}, {book.createdAt.getMonth()}, {book.createdAt.getDate()}
+                              {""}
                             </TableCell>
                             <TableCell>
                               <DropdownMenu>

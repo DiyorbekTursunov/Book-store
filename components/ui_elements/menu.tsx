@@ -14,9 +14,10 @@ import bag_icon from '../images/svgs/icons/bag_icon.svg'
 
 interface MenuProps {
     setmenuIsOpen: Dispatch<SetStateAction<boolean>>
+    adminButtonVisible: boolean
 }
 
-export default function Menu({ setmenuIsOpen }: MenuProps) {
+export default function Menu({ setmenuIsOpen, adminButtonVisible }: MenuProps) {
     const router = useRouter()
 
     function searchInputHandel() {
@@ -40,6 +41,9 @@ export default function Menu({ setmenuIsOpen }: MenuProps) {
                     <Input placeholder="kitoblarni qidirish..." id="search_input" className="flex w-full h-[48px] text-[18px] items-center gap-3 bg-[#F0F0F0] rounded-[62px] pl-12" />
                 </form>
             </div>
+            {adminButtonVisible && <Button className="mt-6" variant={"ghost"} onClick={() => router.push("/admin")}>
+                <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
+            </Button>}
             <ul className="gap-6 font-medium flex justify-center mt-6">
                 <li>
                     <Link href={"/"}>

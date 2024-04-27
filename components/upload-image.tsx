@@ -41,7 +41,6 @@ export default function ImageUpload({ setimageUrl, setloading, loading }: ImageU
                     return;
                 }
                 setimageUrl(url);
-                console.log(url);
             })
             .catch((error) => {
                 console.error("Error uploading image:", error);
@@ -54,7 +53,6 @@ export default function ImageUpload({ setimageUrl, setloading, loading }: ImageU
 
     return (
         <>
-            <ToastContainer />
             <Dialog>
                 <DialogTrigger>
                     <div className="bg-black text-white flex items-center justify-center py-2 px-3 rounded-md hover:bg-opacity-80">

@@ -12,7 +12,7 @@ import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
 import { useEffect, useState } from "react";
 import { createAdmin, getAllUsers, verifyUser } from "./actions/auth";
-import { getCategory } from "./actions/productsAction";
+import { createCatigory, getCategory } from "./actions/productsAction";
 
 interface allcategoryType {
   category: allcategory[] | undefined
@@ -59,11 +59,12 @@ export default function Home() {
 
   useEffect(() => {
     async function name() {
-      const allUsers = await getAllUsers()
+      const categoryData = {title:"Jahon Adabiyoti"}
+      const allUsers = await createCatigory(categoryData)
       console.log(allUsers);
     }
 
-    name()
+    // name()
   }, [])
 
 

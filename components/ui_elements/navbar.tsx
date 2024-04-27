@@ -16,7 +16,7 @@ import { verifyUser } from "@/app/actions/auth";
 export default function Navbar() {
     const [menuIsOpen, setmenuIsOpen] = useState<boolean>(false)
     const verification_token = typeof window !== 'undefined' ? localStorage.getItem("verification_token") : null;
-    const [adminButtonVisible, setAdminButtonVisible] = useState(false);
+    const [adminButtonVisible, setAdminButtonVisible] = useState<boolean>(false);
     const router = useRouter()
 
     function searchInputHandel() {
@@ -38,7 +38,7 @@ export default function Navbar() {
 
     return (
         <nav className="max-w-[1440px] mx-auto flex items-center  transition-all justify-between py-6 px-3">
-            {menuIsOpen && <Menu setmenuIsOpen={setmenuIsOpen} />}
+            {menuIsOpen && <Menu adminButtonVisible={adminButtonVisible} setmenuIsOpen={setmenuIsOpen} />}
             <Button variant={"ghost"} className="block md:hidden" onClick={() => setmenuIsOpen(true)}>
                 <Image src={menu_icon} alt="" />
             </Button>
@@ -72,7 +72,7 @@ export default function Navbar() {
                 <Button variant={"ghost"} onClick={() => router.push("/card")}>
                     <Image src={bag_icon} alt="Bag image" />
                 </Button>
-                {adminButtonVisible && <Button variant={"ghost"} onClick={() => router.push("/admin")}>
+                {adminButtonVisible && <Button className="hidden sm:block" variant={"ghost"} onClick={() => router.push("/admin")}>
                     <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
                 </Button>}
             </div>
