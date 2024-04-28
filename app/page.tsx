@@ -135,7 +135,7 @@ export default function Home() {
                         style={{ background: " radial-gradient(black, transparent 60%)", transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)", opacity: "0.2" }}>
                       </div>
                       <div className="sm:w-[240px] max-sm:w-full h-[365px] flex justify-center items-center">
-                        <img src={book.imageUrl} alt="book image" className="relative w-full h-full max-sm:h-[365px] max-sm:w-[25px] hover:scale-105 duration-200 transition-all" />
+                        <img src={book.imageUrl} alt="book image" className="relative w-full h-full max-sm:h-[365px] max-sm:w-[260px] hover:scale-105 duration-200 transition-all" />
                       </div>
                     </div>
                     <div className="relative  px-6 pb-6 mt-6">
