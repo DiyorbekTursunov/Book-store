@@ -4,7 +4,7 @@ import { FiUpload } from "react-icons/fi";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { storage } from "@/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -86,8 +86,8 @@ export default function ImageUpload({ setimageUrl, setloading, loading }: ImageU
                                         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                                             <span className="font-semibold">Drag an image</span>
                                         </p>
-                                        <p className="text-xs text-gray-400 dark:text-gray-400">
-                                            Click to upload (image should be 500x500 px & under 10 MB)
+                                        <p className="text-sm text-gray-400 dark:text-gray-400 px-3">
+                                            Iltmos rasm sifatiga etibor bering !
                                         </p>
                                     </div>
                                 ) : (

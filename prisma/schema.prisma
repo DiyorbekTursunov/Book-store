@@ -16,6 +16,7 @@ datasource db {
 model Category {
   id    String @id @default(uuid()) // Primary key for Category
   title String @unique // Title of the category
+  createdAt    DateTime @default(now())
 }
 
 // Define the Book model

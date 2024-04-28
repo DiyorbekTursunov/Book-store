@@ -48,7 +48,7 @@ export async function createBook(bookData: bookData) {
 
         //cheack if all cridentials available create book
         if (name.length && price.length && imageUrl.length && description.length && categoryId.length && categoryName.length) {
-            const res = await prisma.book.create({
+            await prisma.book.create({
                 data: {
                     name,
                     categoryId,
@@ -58,7 +58,7 @@ export async function createBook(bookData: bookData) {
                     price,
                 }
             })
-            return { massage: "Kitob yaratildi", status: "200" }
+            return { massage: "Kitob yaratildi", status: "201" }
         } else {
             return { massage: "Malumot toliq kiritilmagan", status: "400" }
         }
@@ -67,6 +67,69 @@ export async function createBook(bookData: bookData) {
         return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
     }
 }
+
+
+
+export async function updateBook(bookData: bookData) {
+    const { categoryId, categoryName, description, imageUrl, name, price, bookId } = bookData
+
+    try {
+        // get all categoys
+        const Allcategory = await prisma.category.findMany();
+
+        //cheack if catigoryId not available return error
+        if (!Allcategory.find((element) => element.id === categoryId))
+            return { massage: "Categoriya mavjud emas !", status: "400" }
+
+        //cheack if all cridentials available create book
+        if (name.length && price.length && imageUrl.length && description.length && categoryId.length && categoryName.length) {
+            await prisma.book.update({
+                where: {
+                    id: bookId
+                },
+                data: {
+                    categoryId,
+                    categoryName,
+                    description,
+                    imageUrl,
+                    name,
+                    price
+                }
+            })
+            return { massage: "Kitob o'zgartirildi", status: "201" }
+        } else {
+            return { massage: "Malumot toliq kiritilmagan", status: "400" }
+        }
+
+    } catch (error) {
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
+    }
+}
+
+
+export async function updateCatigory(categoryData: categoryData,) {
+    const { title, categoryId } = categoryData
+
+    try {
+        // Create a new category
+        if (!title)
+            return { massage: "Malumot to'liq kiritilmagan", status: "404" }
+
+        await prisma.category.update({
+            where: {
+                id: categoryId
+            },
+            data: {
+                title: title,
+            },
+        });
+        return { massage: "categorya muvafaqiyatli o'zgartirildi", status: "201" }
+
+    } catch (error: any) {
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
+    }
+}
+
 
 
 export async function getCategory() {
@@ -164,8 +227,8 @@ export async function delBookById(bookId: string) {
                 status: "404",
 
             }
-        // get all category
-        const book = await prisma.book.delete({
+        // del all category
+        await prisma.book.delete({
             where: {
                 id: bookId
             }
@@ -175,7 +238,6 @@ export async function delBookById(bookId: string) {
         // if category a found return category 
         return {
             massage: "Kitob o'chirildi",
-            book,
             status: "200"
         }
 
@@ -183,3 +245,49 @@ export async function delBookById(bookId: string) {
         return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error, status: "500" }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function delCategoryById(categoryId: string) {
+    try {
+        // if category not found return error 
+        if (!categoryId.length)
+            return {
+                massage: "Malumot toliq kiritilmagan",
+                status: "404",
+            }
+
+        console.log(categoryId);
+
+        // del all category
+        await prisma.category.delete({
+            where: {
+                id: categoryId
+            }
+        });
+
+
+
+        // if category a found return category 
+        return {
+            massage: "Bo'lim o'chirildi",
+            status: "200"
+        }
+
+    } catch (error: any) {
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error, status: "500" }
+    }
+}
+
+
+

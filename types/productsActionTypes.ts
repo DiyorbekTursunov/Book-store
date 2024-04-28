@@ -6,10 +6,13 @@ interface bookData {
     price: string,
     categoryId: string
     createdAt?: string
+    bookId?: string
 }
 
 interface categoryData {
     title: string
+    categoryId?: string
+    id?: string
 }
 
 interface UsersProps {

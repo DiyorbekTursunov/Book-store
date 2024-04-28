@@ -2,26 +2,23 @@
 
 import { useEffect, useState } from "react";
 import Navbar from "@/components/ui_elements/navbar";
-import Books from "@/components/books-admin";
+import Books from "@/components/books/books-admin";
 import { verifyUser } from "../actions/auth";
 import { getBooks, getCategory } from "../actions/productsAction";
 import { useRouter } from "next/navigation";
-import { Book } from "@/types/admin";
+import { Book, allCategorys } from "@/types/admin";
+import Categorys from "@/components/category/categorys-admin";
+import Footer from "@/components/ui_elements/footer";
 
 // Define the types for Book and Category
 
 
 
-interface Category {
-  id: string;
-  title: string; // Ensure that this matches the actual property name in Category
-}
-
 export default function Admin() {
-  const [allCategorys, setAllCategorys] = useState<Category[] | null>(null);
+  const [allCategorys, setAllCategorys] = useState<allCategorys[] | null>(null);
   const [allBooks, setAllBooks] = useState<Book[] | null>(null);
   const router = useRouter();
-
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -61,10 +58,16 @@ export default function Admin() {
     fetchData();
   }, []);
 
+  
+
   return (
-    <div className="max-w-[1440px] mx-auto px-3">
+    <>
       <Navbar />
-      <Books allBooks={allBooks || []} allCategorys={allCategorys || []} />
-    </div>
+      <main className="max-w-[1440px] flex justify-center flex-col gap-12 mx-auto px-3">
+        <Books allBooks={allBooks || []} allCategorys={allCategorys || []} />
+        <Categorys allCategorys={allCategorys || []} />
+      </main>
+      <Footer />
+    </>
   );
 }

@@ -38,7 +38,7 @@ export default function Navbar() {
 
     return (
         <nav className="max-w-[1440px] mx-auto flex items-center  transition-all justify-between py-6 px-3">
-            {menuIsOpen && <Menu adminButtonVisible={adminButtonVisible} setmenuIsOpen={setmenuIsOpen} />}
+            {<Menu adminButtonVisible={adminButtonVisible} setmenuIsOpen={setmenuIsOpen} menuIsOpen={menuIsOpen} />}
             <Button variant={"ghost"} className="block md:hidden" onClick={() => setmenuIsOpen(true)}>
                 <Image src={menu_icon} alt="" />
             </Button>
