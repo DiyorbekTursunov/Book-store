@@ -129,13 +129,13 @@ export default function Home() {
             <>
               {filteredBooks.map((book) => (
                 <section key={book.id} className="p-1 flex flex-wrap items-center justify-center">
-                  <div className="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs shadow-2xl cursor-pointer" onClick={() => handlelOpenModal(book)}>
+                  <div className="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs hover:shadow-2xl shadow-xl transition-all duration-500 cursor-pointer" onClick={() => handlelOpenModal(book)}>
                     <div className="relative pt-10 px-10 flex items-center justify-center">
                       <div className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
                         style={{ background: " radial-gradient(black, transparent 60%)", transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)", opacity: "0.2" }}>
                       </div>
                       <div className="sm:w-[240px] max-sm:w-full h-[365px] flex justify-center items-center">
-                        <img src={book.imageUrl} alt="book image" className="relative w-full h-full max-sm:h-[365px] max-sm:w-[25px] hover:scale-105 transition-all" />
+                        <img src={book.imageUrl} alt="book image" className="relative w-full h-full max-sm:h-[365px] max-sm:w-[25px] hover:scale-105 duration-200 transition-all" />
                       </div>
                     </div>
                     <div className="relative  px-6 pb-6 mt-6">
