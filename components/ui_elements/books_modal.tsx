@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 interface BooksModalProps {
     setmodalIsOpen: Dispatch<SetStateAction<boolean>>
     modalIsOpen: boolean
-    bookForModalData: Book
+    bookForModalData: Book | null
 }
 
 export default function BooksModal({ setmodalIsOpen, modalIsOpen, bookForModalData }: BooksModalProps) {
@@ -20,10 +20,10 @@ export default function BooksModal({ setmodalIsOpen, modalIsOpen, bookForModalDa
                 <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full grid gap-4 pt-6 relative">
                     <div className="p-6 pt-0 grid gap-4">
                         <div className="sm:grid sm:grid-cols-2 max-sm:flex max-sm:flex-col max-sm:items-center gap-2">
-                            <img src={bookForModalData.imageUrl} width={190} height={270} alt="Book image" className='h-[270px]' />
+                            <img src={bookForModalData?.imageUrl} width={190} height={270} alt="Book image" className='h-[270px]' />
                             <div>
-                                <h2 className='font-semibold mb-4'>{bookForModalData.name}</h2>
-                                <p className='text-[#3d3d3d] mb-4'>{bookForModalData.description}</p>
+                                <h2 className='font-semibold mb-4'>{bookForModalData?.name}</h2>
+                                <p className='text-[#3d3d3d] mb-4'>{bookForModalData?.description}</p>
                                 <div className='flex items-center gap-3 '>
                                     <Button variant={"ghost"} onClick={() => setcount(count >= 10 ? count : count + 1)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="22px" viewBox="0 0 24 24" fill="none">
