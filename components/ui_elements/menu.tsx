@@ -1,58 +1,58 @@
 "use client"
+import { allCategorys } from "@/types/admin";
 //components
-import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 //types
 import { Dispatch, SetStateAction } from "react";
+import Image from "next/image";
 //images
-import menu_icon from '../images/svgs/icons/menu_icon.svg'
-import search_icon from "../images/svgs/icons/search_icon.svg"
-import bag_icon from '../images/svgs/icons/bag_icon.svg'
+import logo from "@/components/images/logo.png"
+
 
 interface MenuProps {
     setmenuIsOpen: Dispatch<SetStateAction<boolean>>
     adminButtonVisible: boolean
     menuIsOpen: boolean
+    setSelectedCategory?: Dispatch<SetStateAction<string | null>>
+    setActiveButtonId?: Dispatch<SetStateAction<string | null>>
+    allCategorys: allCategorys[] | null
 }
 
-export default function Menu({ setmenuIsOpen, adminButtonVisible, menuIsOpen }: MenuProps) {
+export default function Menu({ setmenuIsOpen, adminButtonVisible, menuIsOpen, setSelectedCategory, setActiveButtonId, allCategorys }: MenuProps) {
     const router = useRouter()
 
-    function searchInputHandel() {
-        router.push("/search")
-    }
+    const handleCategoryClick = (categoryId: string | null) => {
+        setActiveButtonId && setActiveButtonId(categoryId);
+        setSelectedCategory && setSelectedCategory(categoryId);
+        setmenuIsOpen(false)
+    };
+
     return (
-        <div className={`fixed w-full h-screen top-0 right-0 bg-slate-100 z-50 md:hidden py-6 px-3 transition-all duration-500 ${menuIsOpen ? "right-0" : "right-[900px]"}`}>
+        <div className={`fixed w-full h-screen top-0 right-0 bg-slate-100 z-50 lg:hidden py-6 px-3 transition-all duration-500 ${menuIsOpen ? "right-0" : "right-[1200px]"}`}>
             <div className="flex justify-between mb-6">
-                <Button variant={"ghost"} className="block md:hidden" onClick={() => setmenuIsOpen(false)}>
+                <Button variant={"ghost"} onClick={() => setmenuIsOpen(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#000000" /></svg>
                 </Button>
-                <Link href={"/"}>
-                    <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">Book Shop</span>
+                <Link href={"/"} onClick={() => setmenuIsOpen(false)}>
+                    <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold flex items-center">
+                        <Image src={logo} alt="site logo" className="w-[100px] max-sm:w-[75px]" />
+                        <span className="text-[42px] max-sm:text-[22px] uppercase select-none">books</span>
+                    </span>
                 </Link>
             </div>
-            {adminButtonVisible && <Button className="mt-6" variant={"ghost"} onClick={() => router.push("/admin")}>
-                <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
-            </Button>}
-            <ul className="gap-6 font-medium flex justify-center mt-6">
-                <li>
-                    <Link href={"/"}>
-                        <span>Book Shop</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href={"/"}>
-                        <span>Book Shop</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href={"/"}>
-                        <span>Book Shop</span>
-                    </Link>
-                </li>
+            <ul className="gap-6 font-medium flex justify-center flex-wrap items-center mt-6">
+                {allCategorys && allCategorys.map(category => (
+                    <li key={category.id} onClick={() => handleCategoryClick(category.id)}>
+                        <Link href={"#categories"}>
+                            <span>{category.title}</span>
+                        </Link>
+                    </li>
+                ))}
+                {adminButtonVisible && <Button onClick={() => router.push("/admin")}>
+                    <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
+                </Button>}
             </ul>
         </div>
     )

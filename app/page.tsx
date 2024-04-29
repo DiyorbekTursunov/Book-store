@@ -69,7 +69,7 @@ export default function Home() {
       if (filteredBooks?.length === 0) {
 
       }
-      setFilteredBooks(filteredCategory);
+      setFilteredBooks(filteredCategory.slice(0, 12));
     }
   }, [selectedCategory, allCategories, allBooks]);
 
@@ -97,7 +97,6 @@ export default function Home() {
 
     if (!e.target.value.length && allBooks) {
       setisDataNotFound(false)
-      console.log("daskndsabndklh");
       setFilteredBooks(allBooks)
     }
   }
@@ -106,7 +105,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} />
       <header className="bg-[#f1faf0] h-full">
         <div className="max-w-[1440px] mx-auto p-3 py-[127px] flex md:flex-row sm:flex-col max-sm:flex-col items-center  justify-between">
           <div className="max-w-[700px]">
@@ -151,7 +150,7 @@ export default function Home() {
                 )}
               </div>
               <div className="relative  xl:w-[600px] lg:w-[400px] max-lg:w-full">
-                <button className="absolute h-full flex items-center left-3 z-50"   >
+                <button className="absolute h-full flex items-center left-3"   >
                   <Image src={search_icon} alt="search icon" className="cursor-pointer" />
                 </button>
                 <Input placeholder="kitoblarni qidirish..." id="search_input" onChange={searchInputHandel} className="flex w-full h-[48px] text-[18px] items-center gap-3 rounded-[62px] pl-12" />
@@ -203,7 +202,9 @@ export default function Home() {
           <h1>Malumot topilmadi</h1>
         </div>}
       </main>
-      <Footer />
+      <Footer setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} allCategories={allCategories}/>
+
+      
       {<BooksModal modalIsOpen={modalIsOpen} setmodalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
       <ToastContainer />
     </>

@@ -1,7 +1,7 @@
 export interface allCategorys {
     id: string
     title: string
-    createdAt: Date;
+    createdAt?: Date;
 }
 
 export interface Book {

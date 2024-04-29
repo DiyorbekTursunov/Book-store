@@ -24,7 +24,7 @@ interface Category {
     title: string;
 }
 
-export default function     UpdateBookModal({ allCategorys, bookId }: updateBookModalProps) {
+export default function UpdateBookModal({ allCategorys, bookId }: updateBookModalProps) {
     const [loading, setLoading] = useState<boolean>(false);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [bookName, setBookName] = useState<string>("");
@@ -141,8 +141,8 @@ export default function     UpdateBookModal({ allCategorys, bookId }: updateBook
                                         <FiUpload size="1.2em" />
                                         <span className=" ml-2 text-sm">Yuknalmoqda</span>
                                     </div>}
-                                    <div className="w-full md:flex-col flex justify-center md:items-start items-end">
-                                        {imageUrl && <img src={imageUrl} alt="book image" className="md:w-[50%] md:h-[300px] sm:h-[300px] max-sm:h-[200px]" />}
+                                    <div className="w-full md:flex-col flex justify-center md:items-start items-end  mb-3">
+                                        {imageUrl && <img src={imageUrl} alt="book image" className="md:w-[50%] md:h-[300px] sm:h-[300px] max-sm:h-[200px] mb-3" />}
                                         <ImageUpload setimageUrl={setImageUrl} setloading={setLoading} loading={loading} />
                                     </div>
                                 </div>

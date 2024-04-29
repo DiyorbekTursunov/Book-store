@@ -70,10 +70,10 @@ export default function Register() {
     return (
         <>
             <Navbar />
-            <section className="max-w-[1440px] mx-auto h-screen flex items-center px-3">
+            <section className="max-w-[1440px] mx-auto h-[75vh] flex items-center px-3">
                 <ToastContainer />
                 <div className="flex justify-center w-full h-full items-center">
-                    <div className="w-2/5">
+                    <div className="sm:w-2/5 px-3">
                         <div className="flex flex-col items-center">
                             <h1 className="text-2xl xl:text-3xl font-extrabold">Register</h1>
                             <div className="w-full flex-1 mt-8">

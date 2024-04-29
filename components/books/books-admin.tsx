@@ -94,17 +94,20 @@ export default function Books({ allBooks, allCategorys }: userType) {
       {/* {createBookModalIsOpen && <CreateBookModal setCreateBookModalIsOpen={setCreateBookModalIsOpen} allCategorys={allCategorys} />} */}
       <div className="flex w-full flex-col">
         <ToastContainer />
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <div className="flex flex-col sm:gap-4 sm:py-4 ">
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
             <Tabs defaultValue="all">
-              <div className="flex items-center mb-6">
-                <TabsList className=" flex justify-start  gp-2">
+              <div className="flex flex-wrap  items-center mb-6">
+                <TabsList className="flex-wrap justify-start hidden sm:flex gp-2">
                   <TabsTrigger value="all">Hammasi</TabsTrigger>
                   {allCategorys.map(category => (
                     <Fragment key={category.id}>
                       <TabsTrigger value={category.title}>{category.title}</TabsTrigger>
                     </Fragment>
                   ))}
+                </TabsList>
+                <TabsList className="flex-wrap justify-start sm:hidden flex gp-2">
+                  <TabsTrigger value="all">Hammasi</TabsTrigger>
                 </TabsList>
                 <div className="ml-auto flex items-center gap-2">
                   <CreateBookModal allCategorys={allCategorys} />

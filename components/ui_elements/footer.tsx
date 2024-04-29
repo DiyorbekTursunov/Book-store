@@ -7,14 +7,31 @@ import tele from '../images/svgs/logos/tele.svg'
 import twitter from '../images/svgs/logos/twitter.svg'
 import youtube from '../images/svgs/logos/youtube.svg'
 import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
+import { allCategorys } from "@/types/admin";
 
-export default function Footer() {
+
+
+
+interface footerType {
+  setSelectedCategory?: Dispatch<SetStateAction<string | null>>
+  setActiveButtonId?: Dispatch<SetStateAction<string | null>>
+  allCategories?: allCategorys[] | undefined
+}
+
+export default function Footer({ setActiveButtonId, setSelectedCategory, allCategories }: footerType) {
+
+  const handleCategoryClick = (categoryId: string | null) => {
+    setActiveButtonId && setActiveButtonId(categoryId);
+    setSelectedCategory && setSelectedCategory(categoryId);
+  };
+
   return (
     <footer className="w-full bg-[#21204A]">
       <div className="max-w-[1440px] mx-auto text-[#fff] pt-[67px] flex max-sm:flex-col max-sm:gap-12 justify-between px-3 mb-16">
         <div>
           <Link href={"/"}>
-            <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">Book Shop</span>
+            <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">COMFORT BOOKS</span>
           </Link>
           <span className="block mt-6">Bizning ijtimoiy tarmoqlarimizga qo&apos;shiling</span>
           <ul className="text-[14px] flex gap-3 text-[#BDCADB] mt-3">
@@ -50,15 +67,13 @@ export default function Footer() {
             <li>
               <Link href={"/"} className="text-[18px] text-[#fff] font-medium">Books</Link>
             </li>
-            <li>
-              <Link href={"/"}>Jahon Adabiyoti</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Bolalar Adabiyoti</Link>
-            </li>
-            <li>
-              <Link href={"/"}>O&apos;zbek Adabiyoti</Link>
-            </li>
+            {allCategories && allCategories.map(category => (
+              <li key={category.id} onClick={() => handleCategoryClick(category.id)}>
+                <Link href={"#categories"}>
+                  <span>{category.title}</span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

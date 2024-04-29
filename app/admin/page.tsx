@@ -17,8 +17,9 @@ import Footer from "@/components/ui_elements/footer";
 export default function Admin() {
   const [allCategorys, setAllCategorys] = useState<allCategorys[] | null>(null);
   const [allBooks, setAllBooks] = useState<Book[] | null>(null);
+  const [isAdmin, setisAdmin] = useState(false)
   const router = useRouter();
-  
+
 
   useEffect(() => {
     async function fetchData() {
@@ -33,8 +34,11 @@ export default function Admin() {
         const response = await verifyUser(token);
 
         if (response.status !== "200" || !response.user || response.user.role !== "ADMIN") {
+          setisAdmin(false)
           router.push("/404");
           return;
+        } else {
+          setisAdmin(true)
         }
 
         const categoryResponse = await getCategory();
@@ -58,9 +62,9 @@ export default function Admin() {
     fetchData();
   }, []);
 
-  
 
-  return (
+
+  return isAdmin ? (
     <>
       <Navbar />
       <main className="max-w-[1440px] flex justify-center flex-col gap-12 mx-auto px-3">
@@ -69,5 +73,5 @@ export default function Admin() {
       </main>
       <Footer />
     </>
-  );
+  ) : null;
 }
