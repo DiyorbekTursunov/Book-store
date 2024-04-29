@@ -34,14 +34,6 @@ export default function Menu({ setmenuIsOpen, adminButtonVisible, menuIsOpen }: 
                     <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">Book Shop</span>
                 </Link>
             </div>
-            <div className="w-full  border border-[#000]  rounded-[62px]">
-                <form className="relative " onSubmit={() => searchInputHandel()}>
-                    <button className="absolute h-full flex items-center left-3 z-50"   >
-                        <Image src={search_icon} alt="search icon" className="cursor-pointer" />
-                    </button>
-                    <Input placeholder="kitoblarni qidirish..." id="search_input" className="flex w-full h-[48px] text-[18px] items-center gap-3 bg-[#F0F0F0] rounded-[62px] pl-12" />
-                </form>
-            </div>
             {adminButtonVisible && <Button className="mt-6" variant={"ghost"} onClick={() => router.push("/admin")}>
                 <span className="text-[16px] font-medium">Adminga o&apos;tish</span>
             </Button>}

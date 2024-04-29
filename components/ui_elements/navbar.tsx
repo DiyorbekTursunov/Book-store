@@ -34,13 +34,13 @@ export default function Navbar() {
     }, [verification_token]);
 
     return (
-        <nav className="max-w-[1440px] mx-auto flex items-center  transition-all justify-between py-6 px-3">
+        <nav className="max-w-[1440px] mx-auto flex items-center  transition-all justify-between sm:py-6 px-3">
             {<Menu adminButtonVisible={adminButtonVisible} setmenuIsOpen={setmenuIsOpen} menuIsOpen={menuIsOpen} />}
             <div className="flex items-center gap-6">
                 <Button variant={"ghost"} className="block md:hidden" onClick={() => setmenuIsOpen(true)}>
                     <Image src={menu_icon} alt="" />
                 </Button>
-                <Link href={"/"}>
+                <Link href={"/"} className="hidden sm:block">
                     <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">
                         <Image src={logo} alt="site logo" className="w-[100px]" />
                     </span>
@@ -63,6 +63,11 @@ export default function Navbar() {
                     </li>
                 </ul>
             </div>
+            <Link href={"/"} className="block sm:hidden">
+                    <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">
+                        <Image src={logo} alt="site logo" className="w-[100px]" />
+                    </span>
+                </Link>
             <div className="flex items-center gap-3">
                 {adminButtonVisible && <Button className="hidden sm:block" variant={"ghost"} onClick={() => router.push("/admin")}>
                     <span className="text-[16px] font-medium">Adminga o&apos;tish</span>

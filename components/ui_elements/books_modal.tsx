@@ -24,8 +24,8 @@ export default function BooksModal({ setmodalIsOpen, modalIsOpen, bookForModalDa
                             <div className="sm:flex sm:gap-6 max-sm:flex max-sm:flex-col max-sm:items-center gap-2">
                                 <img src={bookForModalData?.imageUrl} width={190} height={270} alt="Book image" className='h-[270px]' />
                                 <div>
-                                    <h2 className='font-semibold mb-4 capitalize'>{bookForModalData?.name}</h2>
-                                    <p className='text-[#3d3d3d] text-[12px] mb-4'>{bookForModalData?.description}</p>
+                                    <h2 className='font-semibold mb-4 text-[18px] capitalize'>{bookForModalData?.name}</h2>
+                                    <p className='text-[#3d3d3d] mb-4'>{bookForModalData?.description}</p>
                                     <span className="bg-black rounded-full max-w-[150px] mb-4 justify-center text-white  text-sm font-bold px-3 py-2 leading-none flex items-center">{bookForModalData?.price}</span>
                                     <div className='flex items-center gap-3 '>
                                         <Button variant={"ghost"} onClick={() => setcount(count >= 10 ? count : count + 1)}>
