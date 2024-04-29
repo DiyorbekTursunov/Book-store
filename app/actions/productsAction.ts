@@ -15,7 +15,7 @@ export async function createCatigory(categoryData: categoryData,) {
 
         await prisma.category.create({
             data: {
-                title: title,
+                title: title.toLowerCase(),
             },
         });
         return { massage: "categorya muvafaqiyatli yaratildi yaratildi", status: "201" }
@@ -40,7 +40,6 @@ export async function createBook(bookData: bookData) {
     try {
         // get all categoys
         const Allcategory = await prisma.category.findMany();
-        console.log(Allcategory);
 
         //cheack if catigoryId not available return error
         if (!Allcategory.find((element) => element.id === categoryId))
@@ -50,10 +49,10 @@ export async function createBook(bookData: bookData) {
         if (name.length && price.length && imageUrl.length && description.length && categoryId.length && categoryName.length) {
             await prisma.book.create({
                 data: {
-                    name,
+                    name: name.toLowerCase(),
                     categoryId,
-                    categoryName,
-                    description,
+                    categoryName: categoryName.toLowerCase(),
+                    description: description.toLowerCase(),
                     imageUrl,
                     price,
                 }
@@ -89,10 +88,10 @@ export async function updateBook(bookData: bookData) {
                 },
                 data: {
                     categoryId,
-                    categoryName,
-                    description,
+                    categoryName: categoryName.toLowerCase(),
+                    description: description.toLowerCase(),
                     imageUrl,
-                    name,
+                    name: name.toLowerCase(),
                     price
                 }
             })
@@ -120,7 +119,7 @@ export async function updateCatigory(categoryData: categoryData,) {
                 id: categoryId
             },
             data: {
-                title: title,
+                title: title.toLowerCase(),
             },
         });
         return { massage: "categorya muvafaqiyatli o'zgartirildi", status: "201" }
@@ -291,3 +290,38 @@ export async function delCategoryById(categoryId: string) {
 
 
 
+export async function searchBooks(bookName: string) {
+    try {
+        if (!bookName) {
+            return {
+                massage: "success",
+                status: "400"
+            }
+        }
+        // get all category
+        const books = await prisma.book.findMany({
+            where: {
+                name: {
+                    contains: bookName.toLowerCase()
+                },
+            }
+        })
+
+        // if category not found return error 
+        if (!books.length)
+            return {
+                massage: "Kitob topilmadi!",
+                status: "404",
+            }
+
+        // if category a found return category 
+        return {
+            massage: "success",
+            books,
+            status: "200"
+        }
+
+    } catch (error: any) {
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
+    }
+}

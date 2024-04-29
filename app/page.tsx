@@ -7,13 +7,15 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 //images
 import header_reading_side from '@/components/images/icons/header-reading-side.gif'
+import search_icon from "@/components/images/svgs/icons/search_icon.svg"
 import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
-import { Fragment, useEffect, useState } from "react";
-import { getBooks, getCategory } from "./actions/productsAction";
+import { ChangeEvent, ChangeEventHandler, Fragment, useEffect, useState } from "react";
+import { getBooks, getCategory, searchBooks } from "./actions/productsAction";
 import { Book } from "@/types/admin";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css"
+import { Input } from "@/components/ui/input";
 
 interface Category {
   id: string;
@@ -37,6 +39,10 @@ export default function Home() {
   const [modalIsOpen, setmodalIsOpen] = useState<boolean>(false)
 
   const [bookForModalData, setbookForModalData] = useState<Book | null>(null)
+
+  const [isDataNotFound, setisDataNotFound] = useState(false)
+
+
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
@@ -60,6 +66,9 @@ export default function Home() {
   useEffect(() => {
     if (allCategories && allBooks) {
       const filteredCategory = selectedCategory ? allBooks.filter(book => book.categoryId === selectedCategory) : allBooks;
+      if (filteredBooks?.length === 0) {
+
+      }
       setFilteredBooks(filteredCategory);
     }
   }, [selectedCategory, allCategories, allBooks]);
@@ -74,6 +83,26 @@ export default function Home() {
     setmodalIsOpen(true)
     setbookForModalData(book)
   }
+
+  async function searchInputHandel(e: ChangeEvent<HTMLInputElement>) {
+    const searchedBooks = await searchBooks(e.target.value)
+
+
+    if (searchedBooks.status === "200" && searchedBooks.books) {
+      setFilteredBooks(searchedBooks.books)
+    } else {
+      setFilteredBooks(null)
+      setisDataNotFound(true)
+    }
+
+    if (!e.target.value.length && allBooks) {
+      setisDataNotFound(false)
+      console.log("daskndsabndklh");
+      setFilteredBooks(allBooks)
+    }
+  }
+
+
 
   return (
     <>
@@ -98,33 +127,41 @@ export default function Home() {
       <main className="p-3 bg-[#ffff] pb-12 w-full flex flex-col items-center bg-slate-100 " id="categories">
         {/* Category toggle buttons section */}
         <div className="w-full">
-          <section className="max-w-[1440px] mx-auto">
+          <section className="max-w-[1440px]   mx-auto px-3">
             <h2 className="sm:text-[24px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">BO&apos;LIMLAR</h2>
-            <div className="flex flex-wrap gap-3">
-              {allCategories && allCategories.length > 0 ? (
-                <>
-                  <Button onClick={() => handleCategoryClick(null)} className={activeButtonId === null ? "" : "bg-white text-black border border-black hover:text-white"}>
-                    Hammasi
-                  </Button>
-                  {allCategories.map((category: Category) => (
-                    <Button
-                      key={category.id}
-                      onClick={() => handleCategoryClick(category.id)}
-                      className={activeButtonId === category.id ? "bg-black" : "bg-white text-black border border-black hover:text-white"}
-                    >
-                      {category.title}
+            <div className="flex justify-between lg:flex-row  md:flex-col max-md:flex-col md:gap-5 max-md:gap-5">
+              <div className="flex flex-wrap gap-3">
+                {allCategories && allCategories.length > 0 ? (
+                  <>
+                    <Button onClick={() => handleCategoryClick(null)} className={activeButtonId === null ? "" : "bg-white text-black border border-black hover:text-white"}>
+                      Hammasi
                     </Button>
-                  ))}
-                </>
-              ) : (
-                <h2>Loading...</h2>
-              )}
+                    {allCategories.map((category: Category) => (
+                      <Button
+                        key={category.id}
+                        onClick={() => handleCategoryClick(category.id)}
+                        className={activeButtonId === category.id ? "bg-black" : "bg-white text-black border border-black hover:text-white"}
+                      >
+                        {category.title}
+                      </Button>
+                    ))}
+                  </>
+                ) : (
+                  <h2>Loading...</h2>
+                )}
+              </div>
+              <div className="relative  xl:w-[600px] lg:w-[400px] max-lg:w-full">
+                <button className="absolute h-full flex items-center left-3 z-50"   >
+                  <Image src={search_icon} alt="search icon" className="cursor-pointer" />
+                </button>
+                <Input placeholder="kitoblarni qidirish..." id="search_input" onChange={searchInputHandel} className="flex w-full h-[48px] text-[18px] items-center gap-3 rounded-[62px] pl-12" />
+              </div>
             </div>
           </section>
         </div>
 
         {/* Display filtered books */}
-        <div className="max-w-[1440px] mx-auto grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+        <div className="max-w-[1440px] gap-2 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
           {filteredBooks ? (
             <>
               {filteredBooks.map((book) => (
@@ -139,10 +176,10 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="relative  px-6 pb-6 mt-6">
-                      <span className="block text-[14px] mb-1">{book.description}</span>
-                      <div className="flex justify-between">
-                        <span className="block font-semibold text-xl">{book.name}</span>
-                        <span className="bg-white rounded-full text-black text-lg font-bold px-3 py-2 leading-none flex items-center">$36.00</span>
+                      <span className="block text-[14px] mb-1 capitalize">{book.description.slice(0, 35)}...</span>
+                      <div className="flex justify-between flex-wrap gap-2">
+                        <span className="block font-semibold text-xl capitalize">{book.name}</span>
+                        <span className="bg-black rounded-full text-white h-full text-sm font-bold px-3 py-2 leading-none flex items-center">{book.price}</span>
                       </div>
                     </div>
                   </div>
@@ -150,10 +187,10 @@ export default function Home() {
               ))}
             </>
           ) : (
-            <div className="fixed flex justify-center items-center inset-0 z-40 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" data-aria-hidden="true" aria-hidden="true" style={{ pointerEvents: "auto" }}>
+            isLoading && <div className="fixed flex justify-center items-center inset-0 z-40 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" data-aria-hidden="true" aria-hidden="true" style={{ pointerEvents: "auto" }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 24 24" className="max-sm:w-[2em] max-sm:h-[2em] z-50">
                 <g stroke="currentColor">
-                  <circle cx="12" cy="12" r="9.5" fill="none" stroke-linecap="round" stroke-width="3">
+                  <circle cx="12" cy="12" r="9.5" fill="none" strokeLinecap="round" strokeWidth="3">
                     <animate attributeName="stroke-dasharray" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0 150;42 150;42 150;42 150" />
                     <animate attributeName="stroke-dashoffset" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0;-16;-59;-59" />
                   </circle>
@@ -162,6 +199,9 @@ export default function Home() {
               </svg>
             </div>)}
         </div>
+        {isDataNotFound && <div className="w-full flex justify-center text-4xl max-sm:text-2xl uppercase font-black mt-12 text-[#747474] opacity-50">
+          <h1>Malumot topilmadi</h1>
+        </div>}
       </main>
       <Footer />
       {<BooksModal modalIsOpen={modalIsOpen} setmodalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
