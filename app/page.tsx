@@ -125,8 +125,8 @@ export default function Home() {
       </header>
       <main className="p-3 bg-[#ffff] pb-12 w-full flex flex-col items-center bg-slate-100 " id="categories">
         {/* Category toggle buttons section */}
-        <div className="w-full">
-          <section className="max-w-[1440px]   mx-auto px-3">
+        <section className="w-full">
+          <div className="max-w-[1440px]   mx-auto px-3">
             <h2 className="sm:text-[24px] max-sm:text-[24px] font-semibold uppercase mt-16 mb-6">BO&apos;LIMLAR</h2>
             <div className="flex justify-between lg:flex-row  md:flex-col max-md:flex-col md:gap-5 max-md:gap-5">
               <div className="flex flex-wrap gap-3">
@@ -156,15 +156,15 @@ export default function Home() {
                 <Input placeholder="kitoblarni qidirish..." id="search_input" onChange={searchInputHandel} className="flex w-full h-[48px] text-[18px] items-center gap-3 rounded-[62px] pl-12" />
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
 
         {/* Display filtered books */}
-        <div className="max-w-[1440px] gap-2 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+        <section className="max-w-[1440px] gap-2 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
           {filteredBooks ? (
             <>
               {filteredBooks.map((book) => (
-                <section key={book.id} className="p-1 flex flex-wrap items-center justify-center">
+                <div key={book.id} className="p-1 flex flex-wrap items-center justify-center">
                   <div className="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs hover:shadow-2xl shadow-xl transition-all duration-500 cursor-pointer" onClick={() => handlelOpenModal(book)}>
                     <div className="relative pt-10 px-10 flex items-center justify-center">
                       <div className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
@@ -182,7 +182,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </section>
+                </div>
               ))}
             </>
           ) : (
@@ -197,14 +197,14 @@ export default function Home() {
                 </g>
               </svg>
             </div>)}
-        </div>
+        </section>
         {isDataNotFound && <div className="w-full flex justify-center text-4xl max-sm:text-2xl uppercase font-black mt-12 text-[#747474] opacity-50">
           <h1>Malumot topilmadi</h1>
         </div>}
       </main>
-      <Footer setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} allCategories={allCategories}/>
+      <Footer setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} allCategories={allCategories} />
 
-      
+
       {<BooksModal modalIsOpen={modalIsOpen} setmodalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
       <ToastContainer />
     </>

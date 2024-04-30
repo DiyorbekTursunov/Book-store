@@ -67,11 +67,13 @@ export default function Admin() {
   return isAdmin ? (
     <>
       <Navbar />
-      <main className="max-w-[1440px] flex justify-center flex-col gap-12 mx-auto px-3">
+      <main className="max-w-[1440px] flex justify-center flex-col gap-12 mx-auto px-3  mb-6">
         <Books allBooks={allBooks || []} allCategorys={allCategorys || []} />
         <Categorys allCategorys={allCategorys || []} />
       </main>
       <Footer />
     </>
-  ) : null;
+  ) : <div className="w-full h-screen bg-black">
+
+  </div>;
 }

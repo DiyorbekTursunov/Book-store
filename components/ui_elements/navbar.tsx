@@ -48,7 +48,6 @@ export default function Navbar({ setSelectedCategory, setActiveButtonId }: Navba
             try {
                 const allCategorysData = await getCategory()
                 if (allCategorysData && allCategorysData.category) {
-                    console.log(allCategorysData.category);
                     setallCategorys(allCategorysData.category.slice(0, 3))
                 }
 
