@@ -89,7 +89,7 @@ export default function Home() {
 
 
     if (searchedBooks.status === "200" && searchedBooks.books) {
-      setFilteredBooks(searchedBooks.books)
+      setFilteredBooks(searchedBooks.books.slice(0, 12))
     } else {
       setFilteredBooks(null)
       setisDataNotFound(true)
@@ -97,7 +97,7 @@ export default function Home() {
 
     if (!e.target.value.length && allBooks) {
       setisDataNotFound(false)
-      setFilteredBooks(allBooks)
+      setFilteredBooks(allBooks.slice(0, 12))
     }
   }
 
