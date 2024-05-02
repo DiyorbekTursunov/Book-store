@@ -60,8 +60,8 @@ export default function BooksModal({ setmodalIsOpen, modalIsOpen, bookForModalDa
                 <div className="flex flex-col space-y-1.5 text-center sm:text-left">
                     <div className="rounded-lg max-sm:border-none border bg-card text-card-foreground shadow-sm w-full grid gap-4 pt-6 relative">
                         <div className="p-6 grid gap-4 pt-6">
-                            <div className="flex flex-col gap-2 px-10 ">
-                                <Image src={bookForModalData?.imageUrl || ""} width={500} height={500} alt="Book image" className='sm:w-full max-sm:w-full max-sm:h-full max-w-[500px] mx-auto' />
+                            <div className="flex flex-col gap-2 sm:px-10">
+                                <Image src={bookForModalData?.imageUrl || ""} width={500} height={500} alt="Book image" className='w-full h-full max-w-[500px] mx-auto' />
                                 <div className=''>
                                     <div className=''>
                                         <h2 className='font-semibold mb-2 text-[18px] capitalize'>{bookForModalData?.name}</h2>
