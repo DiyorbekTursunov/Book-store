@@ -145,12 +145,12 @@ export default function Books({ allBooks, allCategorys }: userType) {
                           {data.books.map(book => (
                             <TableRow key={book.id}>
                               <TableCell className="hidden sm:table-cell">
-                                <img
+                                <Image
                                   alt="Product image"
                                   className="aspect-square rounded-md object-cover"
-                                  height="84"
+                                  height="164"
                                   src={book.imageUrl}
-                                  width="64"
+                                  width="164"
                                 />
                               </TableCell>
                               <TableCell className="font-medium">

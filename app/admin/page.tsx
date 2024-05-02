@@ -73,7 +73,5 @@ export default function Admin() {
       </main>
       <Footer />
     </>
-  ) : <div className="w-full h-screen bg-black">
-
-  </div>;
+  ) : <div className="w-full h-screen bg-black"></div>;
 }

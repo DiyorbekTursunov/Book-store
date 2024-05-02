@@ -160,29 +160,54 @@ export default function Home() {
         </section>
 
         {/* Display filtered books */}
-        <section className="max-w-[1440px] gap-2 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+        <section className="max-w-[1440px] gap-11 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mt-11">
           {filteredBooks ? (
             <>
               {filteredBooks.map((book) => (
-                <div key={book.id} className="p-1 flex flex-wrap items-center justify-center">
-                  <div className="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs hover:shadow-2xl shadow-xl transition-all duration-500 cursor-pointer" onClick={() => handlelOpenModal(book)}>
-                    <div className="relative pt-10 px-10 flex items-center justify-center">
-                      <div className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
-                        style={{ background: " radial-gradient(black, transparent 60%)", transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)", opacity: "0.2" }}>
-                      </div>
-                      <div className="sm:w-[240px] max-sm:w-full h-[365px] flex justify-center items-center">
-                        <img src={book.imageUrl} alt="book image" className="relative w-full h-full max-sm:h-[365px] max-sm:w-[260px] hover:scale-105 duration-200 transition-all" />
-                      </div>
+                <>
+                  <div className="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md hover:shadow-xl">
+                    <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
+                      <Image
+                        className="cursor-pointer"
+                        src={book.imageUrl}
+                        alt="product image"
+                        width={294}
+                        height={240}
+                      />
                     </div>
-                    <div className="relative  px-6 pb-6 mt-6">
-                      <span className="block text-[14px] mb-1 capitalize">{book.description.slice(0, 35)}...</span>
-                      <div className="flex justify-between flex-wrap gap-2">
-                        <span className="block font-semibold text-xl capitalize">{book.name}</span>
-                        <span className="bg-black rounded-full text-white h-full text-sm font-bold px-3 py-2 leading-none flex items-center">{book.price}</span>
+                    <div className="mt-4 px-5 pb-5">
+                      {/* <h5 className="text-xl tracking-tight text-slate-900">
+                        {book.name}
+                      </h5> */}
+                      <div className="mt-2 mb-5 flex items-center justify-between">
+                        <p className="bg-slate-900 text-white px-4 rounded-2xl">
+                          <span className="text-1xl font-bold">{book.price}</span>
+                        </p>
                       </div>
+                      <Button
+                        onClick={() => handlelOpenModal(book)}
+                        className="flex items-center justify-center rounded-md w-full"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="mr-2 h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                          />
+                        </svg>
+                        Savatga qo&apos;shish
+                      </Button>
                     </div>
                   </div>
-                </div>
+
+                </>
               ))}
             </>
           ) : (
