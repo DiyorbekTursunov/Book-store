@@ -61,15 +61,15 @@ export default function BooksModal({ setmodalIsOpen, modalIsOpen, bookForModalDa
                     <div className="rounded-lg max-sm:border-none border bg-card text-card-foreground shadow-sm w-full grid gap-4 pt-6 relative">
                         <div className="p-6 grid gap-4 pt-6">
                             <div className="flex flex-col gap-2 sm:px-10">
-                                <Image src={bookForModalData?.imageUrl || ""} width={500} height={500} alt="Book image" className='w-full h-full max-w-[500px] mx-auto' />
-                                <div className=''>
-                                    <div className=''>
-                                        <h2 className='font-semibold mb-2 text-[18px] capitalize'>{bookForModalData?.name}</h2>
-                                        <p className='text-[#3d3d3d] mb-4'>{bookForModalData?.description}</p>
+                                <Image src={bookForModalData?.imageUrl || "loading  "} width={300} height={300} alt="Book image" className='w-[300px] h-[300px] max-sm:scale-[.8] mx-auto' />
+                                <div>
+                                    <div>
+                                        <h2 className='font-semibold mb-2 text-[18px] capitalize '>{bookForModalData?.name}</h2>
+                                        <p className='text-[#3d3d3d] mb-4 line-clamp-3 max-sm:hidden'>{bookForModalData?.description}</p>
                                     </div>
-                                    <div className='flex max-sm:flex-col items-center'>
-                                        <span className="bg-black rounded-full mb-4 justify-center text-white  text-sm font-bold px-3 py-2 leading-none flex items-center">{bookForModalData?.price}</span>
-                                        <div className='flex items-center gap-3 '>
+                                    <div className='flex max-sm:flex-col items-center gap-3'>
+                                        <div className="bg-black rounded-full mb-4 justify-center text-white mt-4  text-sm font-bold px-3 py-2 leading-none flex items-center">{bookForModalData?.price}</div>
+                                        <div className='flex items-center gap-3'>
                                             <Button variant={"ghost"} onClick={() => setcount(count >= 10 ? count : count + 1)}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="22px" viewBox="0 0 24 24" fill="none">
                                                     <path d="M4 12H20M12 4V20" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

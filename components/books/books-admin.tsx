@@ -154,12 +154,12 @@ export default function Books({ allBooks, allCategorys }: userType) {
                                 />
                               </TableCell>
                               <TableCell className="font-medium">
-                                {book.name}
+                                {book.name.toUpperCase()}
                               </TableCell>
                               <TableCell className="hidden md:table-cell">
                                 {book.price}
                               </TableCell>
-                              <TableCell className="hidden md:table-cell">
+                              <TableCell className="hidden md:table-cell capitalize">
                                 {book.description.slice(0, 15)}...
                               </TableCell>
                               <TableCell className="hidden md:table-cell">
@@ -234,15 +234,15 @@ export default function Books({ allBooks, allCategorys }: userType) {
                         {allBooks && allBooks.map(book => (
                           <TableRow key={book.id}>
                             <TableCell className="hidden sm:table-cell">
-                              <img
+                              <Image
                                 alt="Product image"
                                 className="aspect-square rounded-md object-cover"
-                                height="84"
+                                height={84}
                                 src={book.imageUrl}
-                                width="64"
+                                width={64}
                               />
                             </TableCell>
-                            <TableCell className="font-medium">
+                            <TableCell className="font-medium capitalize">
                               {book.name}
                             </TableCell>
                             <TableCell className="hidden md:table-cell">

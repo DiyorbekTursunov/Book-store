@@ -1,3 +1,4 @@
+"use client"
 //components
 import Footer from "@/components/ui_elements/footer";
 import Navbar from "@/components/ui_elements/navbar";
@@ -10,9 +11,11 @@ import minus_icon from '@/components/images/svgs/icons/minus_icon.svg'
 import del_icon from '@/components/images/svgs/icons/del_icon.svg'
 import book_2 from '@/components/images/books/book_2.jpg'
 import arrow from '@/components/images/svgs/icons/arrow-down-bold 1.svg'
+import { useRouter } from "next/navigation";
 
 
 export default function Card() {
+    const router = useRouter()
     return (
         <>
             <Navbar />
@@ -72,9 +75,11 @@ export default function Card() {
                                 <span>Jami narx</span>
                                 <span className="text-[18px] font-bold">400 ming so&apos;m</span>
                             </li>
-                            <Button className="py-6">
-                                Go to Checkout
-                                <Image src={arrow} alt="arrow"/>
+                            <Button className="py-6" asChild>
+                                <Link href={"https://t.me/Comfort_new"} target="_blank">
+                                    Go to Checkout
+                                    <Image src={arrow} alt="arrow" />
+                                </Link>
                             </Button>
                         </ul>
                     </div>

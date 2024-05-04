@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { allCategorys } from "@/types/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 interface updateBookModalProps {
     allCategorys: allCategorys[];
@@ -142,7 +143,7 @@ export default function UpdateBookModal({ allCategorys, bookId }: updateBookModa
                                         <span className=" ml-2 text-sm">Yuknalmoqda</span>
                                     </div>}
                                     <div className="w-full md:flex-col flex justify-center md:items-start items-end  mb-3">
-                                        {imageUrl && <img src={imageUrl} alt="book image" className="md:w-[90%] mb-3" />}
+                                        {imageUrl && <Image width={500} height={500} src={imageUrl} alt="book image" className="md:w-[90%] mb-3" />}
                                         <ImageUpload setimageUrl={setImageUrl} setloading={setLoading} loading={loading} />
                                     </div>
                                 </div>

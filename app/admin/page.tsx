@@ -60,7 +60,7 @@ export default function Admin() {
     }
 
     fetchData();
-  }, []);
+  }, [router]);
 
 
 

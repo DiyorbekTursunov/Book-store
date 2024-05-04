@@ -95,7 +95,7 @@ export default function Categorys({ allCategorys }: userType) {
                       <TableBody>
                         {allCategorys && allCategorys.map(category => (
                           <TableRow key={category.id}>
-                            <TableCell className="font-medium">
+                            <TableCell className="font-medium normal-case">
                               {category.title}
                             </TableCell>
                             <TableCell>

@@ -172,13 +172,13 @@ export default function Home() {
                         src={book.imageUrl}
                         alt="product image"
                         width={294}
-                        height={240}
+                        height={230}
                       />
                     </div>
                     <div className="mt-4 px-5 pb-5">
                       {/* <h5 className="text-xl tracking-tight text-slate-900">
                         {book.name}
-                      </h5> */}
+                    </h5> */}
                       <div className="mt-2 mb-5 flex items-center justify-between">
                         <p className="bg-slate-900 text-white px-4 rounded-2xl">
                           <span className="text-1xl font-bold">{book.price}</span>
