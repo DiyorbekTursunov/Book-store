@@ -11,7 +11,7 @@ import search_icon from "@/components/images/svgs/icons/search_icon.svg"
 import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
 import { ChangeEvent, ChangeEventHandler, Fragment, useEffect, useState } from "react";
-import { getBooks, getCategory, searchBooks } from "./actions/productsAction";
+import { getBooks, getCategory, searchBooks } from "../../actions/productsAction";
 import { Book } from "@/types/admin";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css"
@@ -28,7 +28,12 @@ interface AllCategoryResponse {
   status: string;
 }
 
-export default function Home() {
+
+import { useParams } from "next/navigation"
+import { Divide } from "lucide-react";
+
+export default function Categorys() {
+  const { slug } = useParams()
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allCategories, setAllCategories] = useState<Category[] | undefined>(undefined);
@@ -40,10 +45,11 @@ export default function Home() {
 
   const [bookForModalData, setbookForModalData] = useState<Book | null>(null)
 
-  const [isDataNotFound, setisDataNotFound] = useState(false)
 
 
   useEffect(() => {
+    setActiveButtonId(slug as string);
+    setSelectedCategory(slug as string);
     async function fetchData() {
       setIsLoading(true);
       try {
@@ -51,6 +57,13 @@ export default function Home() {
         const booksResponse = await getBooks();
         if (AllCategoryResponse.status === "200") {
           setAllCategories(AllCategoryResponse.category);
+          const cheackIsAvalbe = AllCategoryResponse.category && AllCategoryResponse.category.find(category => category.id === slug)
+          if (!cheackIsAvalbe) {
+            router.back()
+            router.refresh()
+            //  window.location.reload()
+            return
+          }
         }
         if (booksResponse.status === "200") {
           setAllBooks(booksResponse.books);
@@ -61,7 +74,7 @@ export default function Home() {
       setIsLoading(false);
     }
     fetchData();
-  }, []);
+  }, [slug, router]);
 
   useEffect(() => {
     if (allCategories && allBooks) {
@@ -92,36 +105,16 @@ export default function Home() {
       setFilteredBooks(searchedBooks.books.slice(0, 12))
     } else {
       setFilteredBooks(null)
-      setisDataNotFound(true)
     }
 
     if (!e.target.value.length && allBooks) {
-      setisDataNotFound(false)
       setFilteredBooks(allBooks.slice(0, 12))
     }
   }
 
-
   return (
     <>
       <Navbar setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} />
-      <header className="bg-[#f1faf0] h-full">
-        <div className="max-w-[1440px] mx-auto p-3 py-[127px] flex md:flex-row sm:flex-col max-sm:flex-col items-center  justify-between">
-          <div className="max-w-[700px]">
-            <h1 className={cn("lg:text-[64px] md:text-[44px]  sm:text-[54px] max-sm:text-[34px] font-black leading-[110%] tracking-tighter mb-6 uppercase")}>ENG YOQTIRGAN KITOBINGIZNI TOPING</h1>
-            <p className="mb-6 text-[18px] font-medium">Eng mashhur kitoblarni ko&apos;rib chiqing va sotib oling</p>
-            <Button className="px-[67px] py-[25px] rounded-[62px] hidden md:flex" onClick={() => router.push('#categories')}>
-              Sotib olish
-            </Button>
-          </div>
-          <div className="w-full flex flex-col">
-            <Image src={header_reading_side} priority unoptimized alt="header_reading_side" className=" md:w-[100%] sm:w-[100%] max-sm:w-[100%]" />
-            <Button className="py-[35px] max-sm:py-[25px] rounded-[62px] text-[18px] w-[300px] max-sm:w-full  md:hidden" onClick={() => router.push('#categories')}>
-              Sotib Olish
-            </Button>
-          </div>
-        </div>
-      </header>
       <main className="p-3 bg-[#ffff] pb-12 w-full min-h-screen flex flex-col items-center bg-slate-100 " id="categories">
         {/* Category toggle buttons section */}
         <section className="w-full">
@@ -211,7 +204,7 @@ export default function Home() {
         ) : (<div className="w-full flex justify-center text-4xl max-sm:text-2xl uppercase font-black mt-12 text-[#747474] opacity-50">
           <h1>Malumot topilmadi</h1>
         </div>)}
-        {!filteredBooks && isLoading && <div className="fixed flex justify-center items-center inset-0 z-40 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" data-aria-hidden="true" aria-hidden="true" style={{ pointerEvents: "auto" }}>
+        {!filteredBooks && isLoading && <div className="fixed flex justify-center items-center inset-0 z-40 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" data-aria-hidden="true" aria-hidden="true" style={{ pointerEvents: "auto" }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 24 24" className="max-sm:w-[2em] max-sm:h-[2em] z-50">
             <g stroke="currentColor">
               <circle cx="12" cy="12" r="9.5" fill="none" strokeLinecap="round" strokeWidth="3">
@@ -229,5 +222,5 @@ export default function Home() {
       {<BooksModal modalIsOpen={modalIsOpen} setmodalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
       <ToastContainer />
     </>
-  );
+  )
 }

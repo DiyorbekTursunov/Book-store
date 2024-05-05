@@ -19,7 +19,7 @@ export default function Card() {
     return (
         <>
             <Navbar />
-            <main className="max-w-[1440px] mx-auto px-3 mb-16">
+            <main className="max-w-[1440px] h-[85vh] mx-auto px-3 mb-16">
                 <div className="flex items-center gap-2 mb-12">
                     <Link href={"/"}>Home</Link>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

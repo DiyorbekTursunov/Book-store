@@ -55,7 +55,6 @@ interface allData {
 export default function Books({ allBooks, allCategorys }: userType) {
   const [allData, setallData] = useState<{ categoryName: string; books: Book[] }[] | null>(null);
 
-
   async function delBookHandler(bookId: string) {
     if (!bookId)
       return
@@ -68,7 +67,6 @@ export default function Books({ allBooks, allCategorys }: userType) {
       toast("Hatolik yuz berdi yana bir bor urunib ko'ring")
     }
   }
-
 
   useEffect(() => {
     function createData() {
@@ -85,8 +83,9 @@ export default function Books({ allBooks, allCategorys }: userType) {
 
       setallData(result);
     }
-    createData()
-  }, [allBooks || allCategorys])
+
+    createData();
+  }, [allBooks, allCategorys]);
 
 
   return (

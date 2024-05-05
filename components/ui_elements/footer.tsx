@@ -1,3 +1,4 @@
+"use client"
 //compoenets
 import Link from "next/link";
 //images
@@ -9,6 +10,7 @@ import youtube from '../images/svgs/logos/youtube.svg'
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { allCategorys } from "@/types/admin";
+import { useRouter } from "next/navigation";
 
 
 
@@ -20,10 +22,10 @@ interface footerType {
 }
 
 export default function Footer({ setActiveButtonId, setSelectedCategory, allCategories }: footerType) {
+  const router = useRouter()
 
   const handleCategoryClick = (categoryId: string | null) => {
-    setActiveButtonId && setActiveButtonId(categoryId);
-    setSelectedCategory && setSelectedCategory(categoryId);
+    router.push(`/categorys/${categoryId}`)
   };
 
   return (

@@ -48,7 +48,7 @@ export default function Navbar({ setSelectedCategory, setActiveButtonId }: Navba
             try {
                 const allCategorysData = await getCategory()
                 if (allCategorysData && allCategorysData.category) {
-                    setallCategorys(allCategorysData.category.slice(0, 3))
+                    setallCategorys(allCategorysData.category.slice(0, 4))
                 }
 
             } catch (error) {
@@ -60,8 +60,7 @@ export default function Navbar({ setSelectedCategory, setActiveButtonId }: Navba
     }, [verification_token]);
 
     const handleCategoryClick = (categoryId: string | null) => {
-        setActiveButtonId && setActiveButtonId(categoryId);
-        setSelectedCategory && setSelectedCategory(categoryId);
+        router.push(`/categorys/${categoryId}`)
     };
 
     return (
@@ -81,7 +80,7 @@ export default function Navbar({ setSelectedCategory, setActiveButtonId }: Navba
                     {allCategorys && allCategorys.map(category => (
                         <li key={category.id} onClick={() => handleCategoryClick(category.id)}>
                             <Link href={"#categories"}>
-                                <span>{category.title}</span>
+                                <span className="capitalize">{category.title}</span>
                             </Link>
                         </li>
                     ))}

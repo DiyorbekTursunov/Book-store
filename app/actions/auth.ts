@@ -135,7 +135,6 @@ export async function createAdmin(userID: string) {
                 role: 'ADMIN'
             },
         });
-        console.log(user);
         
         if (!user)
             return { message: "Hatolik foydalanuvchilar topilmadi", status: "404" };
