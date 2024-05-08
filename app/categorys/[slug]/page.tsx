@@ -219,7 +219,7 @@ export default function Categorys() {
       <Footer setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} allCategories={allCategories} />
 
 
-      {<BooksModal modalIsOpen={modalIsOpen} setmodalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
+      {<BooksModal modalIsOpen={modalIsOpen} setModalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
       <ToastContainer />
     </>
   )
