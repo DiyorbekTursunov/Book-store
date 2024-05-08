@@ -248,6 +248,35 @@ export async function delBookById(bookId: string) {
 
 
 
+export async function getBookById(bookData: bookType[]) {
+    try {
+        // if category not found return error 
+        if (!bookData.length)
+            return {
+                message: "Malumot toliq kiritilmagan",
+                status: "404",
+            }
+
+        // Retrieve all book details concurrently
+        const bookDetailPromises = bookData.map(book => prisma.book.findUnique({
+            where: {
+                id: book.data
+            }
+        }));
+
+        // Wait for all promises to resolve
+        const bookDetails = await Promise.all(bookDetailPromises);
+
+        // if category a found return category 
+        return {
+            message: "success",
+            bookDetails,
+            status: "200"
+        }
+    } catch (error: any) {
+        return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", error, status: "500" }
+    }
+}
 
 
 

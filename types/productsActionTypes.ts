@@ -24,3 +24,9 @@ interface UsersProps {
     name: string
     price: string
 }
+
+
+interface bookType {
+    count: number,
+    data: string
+}

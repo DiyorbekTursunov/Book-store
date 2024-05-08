@@ -24,8 +24,7 @@ export default function Menu({ setmenuIsOpen, adminButtonVisible, menuIsOpen, se
     const router = useRouter()
 
     const handleCategoryClick = (categoryId: string | null) => {
-        setActiveButtonId && setActiveButtonId(categoryId);
-        setSelectedCategory && setSelectedCategory(categoryId);
+        router.push(`/categorys/${categoryId}`)
         setmenuIsOpen(false)
     };
 
@@ -46,7 +45,7 @@ export default function Menu({ setmenuIsOpen, adminButtonVisible, menuIsOpen, se
                 {allCategorys && allCategorys.map(category => (
                     <li key={category.id} onClick={() => handleCategoryClick(category.id)}>
                         <Link href={"#categories"}>
-                            <span>{category.title}</span>
+                            <span className="capitalize">{category.title}</span>
                         </Link>
                     </li>
                 ))}

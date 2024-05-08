@@ -72,7 +72,7 @@ export default function Footer({ setActiveButtonId, setSelectedCategory, allCate
             {allCategories && allCategories.map(category => (
               <li key={category.id} onClick={() => handleCategoryClick(category.id)}>
                 <Link href={"#categories"}>
-                  <span>{category.title}</span>
+                  <span className="capitalize">{category.title}</span>
                 </Link>
               </li>
             ))}

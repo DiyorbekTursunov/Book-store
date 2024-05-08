@@ -12,10 +12,36 @@ import del_icon from '@/components/images/svgs/icons/del_icon.svg'
 import book_2 from '@/components/images/books/book_2.jpg'
 import arrow from '@/components/images/svgs/icons/arrow-down-bold 1.svg'
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getBookById } from "../actions/productsAction";
 
 
 export default function Card() {
+    const [books, setbooks] = useState<null | bookData[]>(null)
     const router = useRouter()
+    useEffect(() => {
+        async function getBookData() {
+            if (typeof window !== 'undefined') {
+                const booksData = localStorage.getItem("products-hash");
+                
+                if (!booksData?.length) {
+                    setbooks(null)
+                    return
+                }
+
+                const data = JSON.parse(booksData)
+                
+                const allBookData = await getBookById(data)
+                // setbooks(allBookData.bookDetails);
+                
+                console.log(allBookData);
+                
+                // setbooks(allBookData)
+            }
+        }
+        getBookData()
+    }, [])
+
     return (
         <>
             <Navbar />
@@ -54,6 +80,7 @@ export default function Card() {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div className="border px-6 py-[20px] flex md:w-[40%] flex-col h-full rounded-[20px]">
                         <h2 className="text-[24px] font-bold mb-6">Jami Buyurtmalar</h2>
@@ -64,7 +91,7 @@ export default function Card() {
                             </li>
                             <li className="flex w-full justify-between">
                                 <span>Chegirma</span>
-                                <span className="text-[18px] font-bold">0</span>
+                                <span className="text-[18px] font-bold">○</span>
                             </li>
                             <li className="flex w-full justify-between">
                                 <span>Yetkazib berish</span>

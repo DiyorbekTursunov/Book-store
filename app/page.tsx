@@ -10,22 +10,17 @@ import header_reading_side from '@/components/images/icons/header-reading-side.g
 import search_icon from "@/components/images/svgs/icons/search_icon.svg"
 import Footer from "@/components/ui_elements/footer";
 import BooksModal from "@/components/ui_elements/books_modal";
-import { ChangeEvent, ChangeEventHandler, Fragment, useEffect, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { getBooks, getCategory, searchBooks } from "./actions/productsAction";
 import { Book } from "@/types/admin";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css"
 import { Input } from "@/components/ui/input";
+import { getAllUsers } from "./actions/auth";
 
 interface Category {
   id: string;
   title: string;
-}
-
-interface AllCategoryResponse {
-  category: Category[] | undefined;
-  message: string;
-  status: string;
 }
 
 export default function Home() {
@@ -36,11 +31,10 @@ export default function Home() {
   const [activeButtonId, setActiveButtonId] = useState<string | null>(null);
   const [filteredBooks, setFilteredBooks] = useState<Book[] | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [modalIsOpen, setmodalIsOpen] = useState<boolean>(false)
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
   const [bookForModalData, setbookForModalData] = useState<Book | null>(null)
 
-  const [isDataNotFound, setisDataNotFound] = useState(false)
 
 
   useEffect(() => {
@@ -73,6 +67,8 @@ export default function Home() {
     }
   }, [selectedCategory, allCategories, allBooks]);
 
+
+
   const handleCategoryClick = (categoryId: string | null) => {
     setActiveButtonId(categoryId);
     setSelectedCategory(categoryId);
@@ -80,10 +76,12 @@ export default function Home() {
 
 
   const handlelOpenModal = (book: Book) => {
-    setmodalIsOpen(true)
+    setModalIsOpen(true)
     setbookForModalData(book)
   }
 
+
+  //for search
   async function searchInputHandel(e: ChangeEvent<HTMLInputElement>) {
     const searchedBooks = await searchBooks(e.target.value)
 
@@ -92,16 +90,15 @@ export default function Home() {
       setFilteredBooks(searchedBooks.books.slice(0, 12))
     } else {
       setFilteredBooks(null)
-      setisDataNotFound(true)
     }
 
     if (!e.target.value.length && allBooks) {
-      setisDataNotFound(false)
       setFilteredBooks(allBooks.slice(0, 12))
     }
   }
 
 
+  
   return (
     <>
       <Navbar setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} />
@@ -211,6 +208,7 @@ export default function Home() {
         ) : (<div className="w-full flex justify-center text-4xl max-sm:text-2xl uppercase font-black mt-12 text-[#747474] opacity-50">
           <h1>Malumot topilmadi</h1>
         </div>)}
+        {/* loader */}
         {!filteredBooks && isLoading && <div className="fixed flex justify-center items-center inset-0 z-40 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" data-aria-hidden="true" aria-hidden="true" style={{ pointerEvents: "auto" }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 24 24" className="max-sm:w-[2em] max-sm:h-[2em] z-50">
             <g stroke="currentColor">
@@ -226,7 +224,7 @@ export default function Home() {
       <Footer setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} allCategories={allCategories} />
 
 
-      {<BooksModal modalIsOpen={modalIsOpen} setmodalIsOpen={setmodalIsOpen} bookForModalData={bookForModalData} />}
+      {<BooksModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} bookForModalData={bookForModalData} />}
       <ToastContainer />
     </>
   );

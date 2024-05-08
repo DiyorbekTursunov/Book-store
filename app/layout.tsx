@@ -1,8 +1,3 @@
-import 'dotenv/config'
-
-
-import prisma from '@/db/prisma'
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";

@@ -87,7 +87,6 @@ export default function Books({ allBooks, allCategorys }: userType) {
     createData();
   }, [allBooks, allCategorys]);
 
-
   return (
     <>
       {/* {createBookModalIsOpen && <CreateBookModal setCreateBookModalIsOpen={setCreateBookModalIsOpen} allCategorys={allCategorys} />} */}
