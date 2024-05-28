@@ -114,18 +114,21 @@ export async function verifyUser(verification_token: string | null) {
 export async function getAllUsers() {
     try {
         const allUsers = await prisma.user.findMany()
-        if (!allUsers)
+        
+        if (!allUsers.length)
             return { message: "Hatolik foydalanuvchilar topilmadi", status: "404" };
 
         return { message: "Success, hamma foydalanuvchilar", status: "200", allUsers };
     } catch (error) {
+        console.log(error);
+        
         return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
     }
 }
 
 export async function createAdmin(userID: string) {
     try {
-        if (!userID)
+        if (!userID.length)
             return { message: "Hatolik malumot toliq kiritilmagan", status: "400" };
 
         
@@ -143,20 +146,21 @@ export async function createAdmin(userID: string) {
 
 
     } catch (error) {
+        console.log(error);
         return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
     }
 }
 
 
 
-// export async function del() {
-//     try {
-//         const user = await prisma.user.deleteMany()
+export async function del() {
+    try {
+        const user = await prisma.user.deleteMany()
 
-//         console.log(user);
+        console.log(user);
         
-//     } catch (error) {
-//         return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
-//     }
-// }
+    } catch (error) {
+        return { message: "Server hatoligi iltimos keyinroq urunib ko'ring", status: "500" };
+    }
+}
 

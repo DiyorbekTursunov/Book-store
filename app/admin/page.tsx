@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { Book, allCategorys } from "@/types/admin";
 import Categorys from "@/components/category/categorys-admin";
 import Footer from "@/components/ui_elements/footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css"
 
 // Define the types for Book and Category
 
@@ -68,6 +70,7 @@ export default function Admin() {
     <>
       <Navbar />
       <main className="max-w-[1440px] flex justify-center flex-col gap-12 mx-auto px-3  mb-6">
+      <ToastContainer />
         <Books allBooks={allBooks || []} allCategorys={allCategorys || []} />
         <Categorys allCategorys={allCategorys || []} />
       </main>

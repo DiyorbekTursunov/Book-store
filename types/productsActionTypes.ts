@@ -27,6 +27,6 @@ interface UsersProps {
 
 
 interface bookType {
-    count: number,
+    count: number | null,
     data: string
 }

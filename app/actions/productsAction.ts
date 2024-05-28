@@ -1,6 +1,7 @@
 "use server"
 
 import prisma from '@/db/prisma'
+import { revalidatePath } from 'next/cache';
 
 
 
@@ -18,8 +19,9 @@ export async function createCatigory(categoryData: categoryData,) {
                 title: title.toLowerCase(),
             },
         });
-        return { massage: "categorya muvafaqiyatli yaratildi yaratildi", status: "201" }
+        revalidatePath("/admin")
 
+        return { massage: "categorya muvafaqiyatli yaratildi yaratildi", status: "201" }
     } catch (error: any) {
         return { massage: "server hatoligi iltimos keyinroq urunib ko'ring, ('Agar siz foydalanuvchi bo'lsangiz bizga habar bering", status: "500", error }
     }
@@ -224,16 +226,21 @@ export async function delBookById(bookId: string) {
             return {
                 massage: "Malumot toliq kiritilmagan",
                 status: "404",
-
             }
         // del all category
-        await prisma.book.delete({
+        const bookData = await prisma.book.delete({
             where: {
                 id: bookId
             }
         });
 
-
+        if (!bookData) {
+            return {
+                massage: "Bad request",
+                status: "500"
+            }
+        }
+        
         // if category a found return category 
         return {
             massage: "Kitob o'chirildi",
@@ -258,16 +265,30 @@ export async function getBookById(bookData: bookType[]) {
             }
 
         // Retrieve all book details concurrently
-        const bookDetailPromises = bookData.map(book => prisma.book.findUnique({
-            where: {
-                id: book.data
+        const bookDetailPromises = bookData.map(async (book) => {
+            const count = (book.count && book.count > 0 && book.count <= 10) ? book.count : null;
+
+            const bookDetail = await prisma.book.findUnique({
+                where: {
+                    id: book.data
+                }
+            });
+            if (!bookDetail) {
+                return {
+                    count,
+                    data: null,
+                };
             }
-        }));
+            return {
+                count,
+                data: bookDetail
+            };
+        });
 
         // Wait for all promises to resolve
         const bookDetails = await Promise.all(bookDetailPromises);
-
         // if category a found return category 
+
         return {
             message: "success",
             bookDetails,
@@ -294,17 +315,13 @@ export async function delCategoryById(categoryId: string) {
                 massage: "Malumot toliq kiritilmagan",
                 status: "404",
             }
-
-        console.log(categoryId);
-
         // del all category
         await prisma.category.delete({
             where: {
                 id: categoryId
             }
         });
-
-
+        revalidatePath("/admin")
 
         // if category a found return category 
         return {

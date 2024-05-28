@@ -16,28 +16,33 @@ import { Book } from "@/types/admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css"
 import { Input } from "@/components/ui/input";
-import { getAllUsers } from "./actions/auth";
 
-interface Category {
+interface Category {                                                   //reusable
   id: string;
   title: string;
 }
 
 export default function Home() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [allCategories, setAllCategories] = useState<Category[] | undefined>(undefined);
   const [allBooks, setAllBooks] = useState<Book[] | undefined>(undefined);
-  const [activeButtonId, setActiveButtonId] = useState<string | null>(null);
+
   const [filteredBooks, setFilteredBooks] = useState<Book[] | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-
+  
   const [bookForModalData, setbookForModalData] = useState<Book | null>(null)
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [activeButtonId, setActiveButtonId] = useState<string | null>(null);
+  
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
 
-  useEffect(() => {
+
+
+  useEffect(() => {                                                    //reusable
     async function fetchData() {
       setIsLoading(true);
       try {
@@ -61,7 +66,7 @@ export default function Home() {
     if (allCategories && allBooks) {
       const filteredCategory = selectedCategory ? allBooks.filter(book => book.categoryId === selectedCategory) : allBooks;
       if (filteredBooks?.length === 0) {
-
+        return 
       }
       setFilteredBooks(filteredCategory.slice(0, 12));
     }
@@ -96,8 +101,6 @@ export default function Home() {
       setFilteredBooks(allBooks.slice(0, 12))
     }
   }
-
-
   
   return (
     <>
@@ -105,7 +108,7 @@ export default function Home() {
       <header className="bg-[#f1faf0] h-full">
         <div className="max-w-[1440px] mx-auto p-3 py-[127px] flex md:flex-row sm:flex-col max-sm:flex-col items-center  justify-between">
           <div className="max-w-[700px]">
-            <h1 className={cn("lg:text-[64px] md:text-[44px]  sm:text-[54px] max-sm:text-[34px] font-black leading-[110%] tracking-tighter mb-6 uppercase")}>ENG YOQTIRGAN KITOBINGIZNI TOPING</h1>
+            <h1 className={cn("lg:text-[64px] md:text-[44px]  sm:text-[54px] max-sm:text-[34px] font-black leading-[110%] tracking-tighter mb-6 uppercase")} >ENG YOQTIRGAN KITOBINGIZNI TOPING</h1>
             <p className="mb-6 text-[18px] font-medium">Eng mashhur kitoblarni ko&apos;rib chiqing va sotib oling</p>
             <Button className="px-[67px] py-[25px] rounded-[62px] hidden md:flex" onClick={() => router.push('#categories')}>
               Sotib olish
@@ -130,7 +133,7 @@ export default function Home() {
                   <>
                     <Button onClick={() => handleCategoryClick(null)} className={activeButtonId === null ? "" : "bg-white text-black border border-black hover:text-white"}>
                       Hammasi
-                    </Button>
+                    </Button> 
                     {allCategories.map((category: Category) => (
                       <Button
                         key={category.id}
