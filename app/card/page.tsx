@@ -186,7 +186,7 @@ export default function Card() {
                     <Link href={"/card"}>card</Link>
                 </div>
                 <h1 className="text-[40px] font-extrabold uppercase mb-16">My card</h1>
-                {!dataIsNotFound && <div className="flex lg:flex-row flex-col  gap-[20px]">
+                {books?.length && <div className="flex lg:flex-row flex-col  gap-[20px]">
                     <div className="border flex flex-col gap-6 pt-6 h-full rounded-[20px]">
 
                         {!isLoading ?
