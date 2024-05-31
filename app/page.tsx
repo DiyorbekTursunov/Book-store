@@ -67,8 +67,7 @@ export default function Home() {
 
       const filteredCategory = selectedCategory ? allBooks.filter(book => book.categoryId === selectedCategory) : allBooks;
 
-      console.log(filteredCategory);
-      setFilteredBooks(filteredCategory);
+      setFilteredBooks(filteredCategory.slice(0, 12));
 
     }
   }, [selectedCategory, allCategories, allBooks]);

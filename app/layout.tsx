@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   applicationName: "Comfort books",
   category: "book store, kitob dokoni, online market",
   robots: ""
+  
 };
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
