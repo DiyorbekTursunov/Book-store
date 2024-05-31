@@ -65,18 +65,18 @@ export default function Footer({ setActiveButtonId, setSelectedCategory, allCate
           </ul>
         </div>
         <div className="flex">
-          <ul className="text-[14px] flex flex-col gap-3 text-[#BDCADB]">
+          {allCategories?.length && <ul className="text-[14px] flex flex-col gap-3 text-[#BDCADB]">
             <li>
               <Link href={"/"} className="text-[18px] text-[#fff] font-medium">Books</Link>
             </li>
-            {allCategories && allCategories.map(category => (
+            {allCategories.map(category => (
               <li key={category.id} onClick={() => handleCategoryClick(category.id)}>
                 <Link href={"#categories"}>
                   <span className="capitalize">{category.title}</span>
                 </Link>
               </li>
             ))}
-          </ul>
+          </ul>}
         </div>
       </div>
       <hr className="text-[#11315B] pb-[64px]" />

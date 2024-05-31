@@ -119,7 +119,7 @@ export default function Card() {
             return {
                 totalPrice: 0,
                 discount: 0,
-                deliveryCost: 100000, // Assuming delivery cost is 100000 ming so'm
+                deliveryCost: 100000, // Assuming delivery cost is 100000 ming so&apos;m
                 finalPrice: 100000 // Assuming delivery cost is included in the final price
             };
         }
@@ -136,7 +136,7 @@ export default function Card() {
         const discount = 0;
 
         // Calculate final price
-        const deliveryCost = 100000; // Assuming delivery cost is 100000 ming so'm
+        const deliveryCost = 100000; // Assuming delivery cost is 100000 ming so&apos;m
         const finalPrice = totalPrice + deliveryCost - discount;
 
         return {
@@ -242,20 +242,20 @@ export default function Card() {
                         <ul className="flex flex-col gap-[20px]">
                             <li className="flex w-full justify-between">
                                 <span>Kitoblar narxi</span>
-                                <span className="text-[18px] font-bold">{totalPrice} so'm</span>
+                                <span className="text-[18px] font-bold">{totalPrice} so&apos;m</span>
                             </li>
                             <li className="flex w-full justify-between">
                                 <span>Chegirma</span>
-                                <span className="text-[18px] font-bold">{discount} so'm</span>
+                                <span className="text-[18px] font-bold">{discount} so&apos;m</span>
                             </li>
                             <li className="flex w-full justify-between">
                                 <span>Yetkazib berish</span>
-                                <span className="text-[18px] font-bold">{deliveryCost} so'm</span>
+                                <span className="text-[18px] font-bold">{deliveryCost} so&apos;m</span>
                             </li>
                             <hr />
                             <li className="flex w-full justify-between">
                                 <span>Jami narx</span>
-                                <span className="text-[18px] font-bold">{finalPrice} so'm</span>
+                                <span className="text-[18px] font-bold">{finalPrice} so&apos;m</span>
                             </li>
                             <Button className="py-6" asChild>
                                 <Link href={"https://t.me/Comfort_new"} target="_blank">
