@@ -30,13 +30,13 @@ export default function Home() {
 
   const [filteredBooks, setFilteredBooks] = useState<Book[] | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
+
   const [bookForModalData, setbookForModalData] = useState<Book | null>(null)
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [activeButtonId, setActiveButtonId] = useState<string | null>(null);
-  
+
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
 
@@ -64,11 +64,12 @@ export default function Home() {
 
   useEffect(() => {
     if (allCategories && allBooks) {
+
       const filteredCategory = selectedCategory ? allBooks.filter(book => book.categoryId === selectedCategory) : allBooks;
-      if (filteredBooks?.length === 0) {
-        return 
-      }
-      setFilteredBooks(filteredCategory.slice(0, 12));
+
+      console.log(filteredCategory);
+      setFilteredBooks(filteredCategory);
+
     }
   }, [selectedCategory, allCategories, allBooks]);
 
@@ -101,7 +102,7 @@ export default function Home() {
       setFilteredBooks(allBooks.slice(0, 12))
     }
   }
-  
+
   return (
     <>
       <Navbar setSelectedCategory={setSelectedCategory} setActiveButtonId={setActiveButtonId} />
@@ -133,7 +134,7 @@ export default function Home() {
                   <>
                     <Button onClick={() => handleCategoryClick(null)} className={activeButtonId === null ? "" : "bg-white text-black border border-black hover:text-white"}>
                       Hammasi
-                    </Button> 
+                    </Button>
                     {allCategories.map((category: Category) => (
                       <Button
                         key={category.id}
@@ -211,6 +212,8 @@ export default function Home() {
         ) : (<div className="w-full flex justify-center text-4xl max-sm:text-2xl uppercase font-black mt-12 text-[#747474] opacity-50">
           <h1>Malumot topilmadi</h1>
         </div>)}
+
+
         {/* loader */}
         {!filteredBooks && isLoading && <div className="fixed flex justify-center items-center inset-0 z-40 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" data-aria-hidden="true" aria-hidden="true" style={{ pointerEvents: "auto" }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 24 24" className="max-sm:w-[2em] max-sm:h-[2em] z-50">
