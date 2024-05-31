@@ -36,30 +36,20 @@ export default function Footer({ setActiveButtonId, setSelectedCategory, allCate
             <span className="lg:text-[37px] md:text-[27px] max-md:text-[27px] uppercase font-semibold">COMFORT BOOKS</span>
           </Link>
           <span className="block mt-6">Bizning ijtimoiy tarmoqlarimizga qo&apos;shiling</span>
-          <ul className="text-[14px] flex gap-3 text-[#BDCADB] mt-3">
+          <ul className="text-[14px] flex gap-4 text-[#BDCADB] mt-3">
             <li>
-              <Link href={"/"} target="_blank">
-                <Image src={facebook} alt="facebook" />
+              <Link href={"https://instagram.com/comfortBooks_uz"} target="_blank">
+                <Image src={instagram} alt="facebook" className="w-[25px]" />
               </Link>
             </li>
             <li>
-              <Link href={"/"} target="_blank">
-                <Image src={instagram} alt="facebook" />
+              <Link href={"https://t.me/Comfortbooks_uz"} target="_blank">
+                <Image src={tele} alt="telegram" className="w-[25px]" />
               </Link>
             </li>
             <li>
-              <Link href={"/"} target="_blank">
-                <Image src={tele} alt="facebook" />
-              </Link>
-            </li>
-            <li>
-              <Link href={"/"} target="_blank">
-                <Image src={twitter} alt="facebook" />
-              </Link>
-            </li>
-            <li>
-              <Link href={"/"} target="_blank">
-                <Image src={youtube} alt="facebook" />
+              <Link href={"tel:+998975911441"} target="_blank">
+                <span className="text-[18px]">(97)591-14-41</span>
               </Link>
             </li>
           </ul>
