@@ -11,7 +11,7 @@ import minus_icon from '@/components/images/svgs/icons/minus_icon.svg'
 import del_icon from '@/components/images/svgs/icons/del_icon.svg'
 import arrow from '@/components/images/svgs/icons/arrow-down-bold 1.svg'
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getBookById } from "../actions/productsAction";
 
 
@@ -29,7 +29,7 @@ type BookData = {
 
 type BookWithCount = {
     count: number | null;
-    data: BookData | null;
+    data: BookData;
 };
 
 
@@ -41,6 +41,8 @@ export default function Card() {
     const [dataIsNotFound, setdataIsNotFound] = useState(false)
     const [isLoading, setisLoading] = useState(false);
     const [localStorageData, setlocalStorageData] = useState<null | string>(null)
+    const router = useRouter()
+
     useEffect(() => {
         setdataIsNotFound(true)
         async function getBookData() {
@@ -72,13 +74,105 @@ export default function Card() {
     }, [])
 
 
-    const handelIncement = (id: string | undefined) => {
-        if (id && localStorageData) {
-            const bookDetails = JSON.parse(localStorageData)
-            console.log(bookDetails);
 
+
+    const handleIncrement = (id: string | undefined) => {
+        if (id && books) {
+            const updatedBooks = books.map(book => {
+                if (book.data.id === id) {
+                    const newCount = (book.count || 0) + 1;
+                    return { ...book, count: newCount >= 10 ? 10 : newCount };
+                }
+                return book;
+            });
+            setbooks(updatedBooks);
+            updateLocalStorage(updatedBooks);
+        }
+    };
+
+    const handleDecrement = (id: string | undefined) => {
+        if (id && books) {
+            const updatedBooks = books.map(book => {
+                if (book.data.id === id && book.count && book.count > 1) {
+                    return { ...book, count: book.count - 1 };
+                }
+                return book;
+            });
+            setbooks(updatedBooks);
+            updateLocalStorage(updatedBooks);
+        }
+    };
+
+
+    const updateLocalStorage = (updatedBooks: BookWithCount[]) => {
+        const simplifiedBooks = updatedBooks.map(book => ({
+            count: book.count || 0,
+            data: book.data.id
+        }));
+        localStorage.setItem("products-hash", JSON.stringify(simplifiedBooks));
+    };
+
+
+
+    const calculateTotal = () => {
+        if (!books || books.length === 0) {
+            return {
+                totalPrice: 0,
+                discount: 0,
+                deliveryCost: 100000, // Assuming delivery cost is 100000 ming so'm
+                finalPrice: 100000 // Assuming delivery cost is included in the final price
+            };
+        }
+
+        let totalPrice = 0;
+
+        // Calculate total price
+        books.forEach(book => {
+            const bookPrice = parseFloat(book.data.price.replace(/\D/g, ''));
+            totalPrice += bookPrice * (book.count || 0);
+        });
+
+        // Calculate discount (assuming no discount for now)
+        const discount = 0;
+
+        // Calculate final price
+        const deliveryCost = 100000; // Assuming delivery cost is 100000 ming so'm
+        const finalPrice = totalPrice + deliveryCost - discount;
+
+        return {
+            totalPrice,
+            discount,
+            deliveryCost,
+            finalPrice
+        };
+    };
+
+
+
+    const handleDelete = async (book_id: string) => {
+        if (books?.length) {
+            const undeletedBooks = books.filter((book: any) => book.data !== book_id);
+            console.log(undeletedBooks);
+
+            setbooks(undeletedBooks)
+
+            const forLocalStorage = undeletedBooks.map((book: any) => ({
+                count: 1,
+                data: book.data.id
+            }));
+
+            localStorage.removeItem("products-hash");
+            localStorage.setItem("products-hash", JSON.stringify(forLocalStorage));
+
+            if (!undeletedBooks.length) {
+                router.push('/');
+            }
         }
     }
+
+
+    const { totalPrice, discount, deliveryCost, finalPrice } = calculateTotal();
+
 
     return (
         <>
@@ -97,7 +191,7 @@ export default function Card() {
 
                         {!isLoading ?
                             <>
-                                {books && books.map(book => {
+                                {books && books.map((book: any) => {
                                     if (book.data === null || book.count === null && typeof window !== 'undefined') {
                                         localStorage.removeItem("products-hash")
                                         setdataIsNotFound(true)
@@ -113,15 +207,15 @@ export default function Card() {
                                                 </div>
                                                 <div className="flex w-full  max-sm:gap-6 items-center justify-between">
                                                     <div className="bg-[#F0F0F0] px-[10px] py-2 flex items-center rounded-[62px] gap-[20px]">
-                                                        <Button variant={"ghost"}>
+                                                        <Button variant={"ghost"} onClick={() => handleDecrement(book.data.id)}>
                                                             <Image src={minus_icon} alt="plus icon" />
                                                         </Button>
                                                         <span>{book.count}</span>
-                                                        <Button variant={"ghost"} onClick={() => handelIncement(book.data?.id)}>
+                                                        <Button variant={"ghost"} onClick={() => handleIncrement(book.data.id)}>
                                                             <Image src={plus_icon} alt="plus icon" />
                                                         </Button>
                                                     </div>
-                                                    <Button variant={"ghost"}>
+                                                    <Button variant={"ghost"} onClick={() => handleDelete(book.data)}>
                                                         <Image src={del_icon} alt="plus icon" />
                                                     </Button>
                                                 </div>
@@ -148,20 +242,20 @@ export default function Card() {
                         <ul className="flex flex-col gap-[20px]">
                             <li className="flex w-full justify-between">
                                 <span>Kitoblar narxi</span>
-                                <span className="text-[18px] font-bold">300 ming so&apos;m</span>
+                                <span className="text-[18px] font-bold">{totalPrice} so'm</span>
                             </li>
                             <li className="flex w-full justify-between">
                                 <span>Chegirma</span>
-                                <span className="text-[18px] font-bold">○</span>
+                                <span className="text-[18px] font-bold">{discount} so'm</span>
                             </li>
                             <li className="flex w-full justify-between">
                                 <span>Yetkazib berish</span>
-                                <span className="text-[18px] font-bold">100 ming so&apos;m</span>
+                                <span className="text-[18px] font-bold">{deliveryCost} so'm</span>
                             </li>
                             <hr />
                             <li className="flex w-full justify-between">
                                 <span>Jami narx</span>
-                                <span className="text-[18px] font-bold">400 ming so&apos;m</span>
+                                <span className="text-[18px] font-bold">{finalPrice} so'm</span>
                             </li>
                             <Button className="py-6" asChild>
                                 <Link href={"https://t.me/Comfort_new"} target="_blank">
@@ -172,10 +266,9 @@ export default function Card() {
                         </ul>
                     </div>
                 </div> :
-                    <div className="flex justify-center text-4xl max-sm:text-2xl uppercase font-black   md:min-h-[40vh] items-center text-[#747474] opacity-50">
+                    <div className="flex justify-center text-4xl max-sm:text-2xl uppercase font-black   md:min-h-[40vh] sm:min-h-[250px] max-sm:min-h-[250px] items-center text-[#747474] opacity-50">
                         <h1>Malumot topilmadi</h1>
-                    </div>
-                }
+                    </div>}
             </main>
             <Footer />
         </>
